@@ -1,0 +1,26 @@
+<div layout="column" layout-fill layout-margin layout-padding>
+
+  <div layout="row" layout-fill layout-align="center center">
+
+  <md-card style="width: 50%" flex="66" flex-gt-md="33">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-title">{{about.title}}</span>
+        <span class="md-subhead">{{about.subhead}}</span>
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-md card-media">
+          <img ng-src="{{about.logo}}">
+        </div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-card-content>
+        <p>Version:  {{about.version}}</p>
+        <p>Revision: {{about.revision}}</p>
+        <p>Built on: {{about.buildDate}}</p>
+    </md-card-content>
+  </md-card>
+
+  </div>
+
+</div>
