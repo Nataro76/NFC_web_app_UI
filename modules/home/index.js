@@ -1,4 +1,4 @@
-define([ 'require', ], function ( require ) {
+define([ 'require', './tagAssoc'], function ( require ) {
     'use strict';
 
     return angular.module("app.home", [ 'ui.router' ])
@@ -35,7 +35,6 @@ define([ 'require', ], function ( require ) {
         };
 
         $ctrl.ChromSamplesInit = function(){
-            $scope.scopefun();
             $ctrl.ChromeSamples = {
             
                 setStatus: function(status) {
@@ -51,15 +50,22 @@ define([ 'require', ], function ( require ) {
                 }
                 
               };
-            //   if (/Chrome\/(\d+\.\d+.\d+.\d+)/.test(navigator.userAgent)){
-            //     if (81 > parseInt(RegExp.$1)) {
-            //       ChromeSamples.setStatus('Warning! Keep in mind this sample has been tested with Chrome ' + 81 + '.');
-            //     }
-            //   }
+              if (/Chrome\/(\d+\.\d+.\d+.\d+)/.test(navigator.userAgent)){
+                if (81 > parseInt(RegExp.$1)) {
+                  ChromeSamples.setStatus('Warning! Keep in mind this sample has been tested with Chrome ' + 81 + '.');
+                }
+              }
             
         }
-        $scope.scopefun = function () {
-            $scope.state = false;
+        $ctrl.scanStart = function () {
+            $scope.state = !$scope.state;    
+            const reader = new NDEFReader();   
+            reader.scan();
+            reader.onreading = ({message,serialNumber}) =>{
+                console.log('message: ' + message);
+                console.log('Serial Number: ' + serialNumber);
+            }                                                                                
+  
         };
 
         $ctrl.fun = function () {
