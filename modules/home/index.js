@@ -1,4 +1,4 @@
-define([ 'require', './tagAssoc'], function ( require ) {
+define([ 'require',], function ( require ) {
     'use strict';
 
     return angular.module("app.home", [ 'ui.router' ])
