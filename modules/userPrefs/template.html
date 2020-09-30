@@ -1,0 +1,111 @@
+  <form name="userPrefsForm" novalidate="novalidate" ng-submit="submit()">
+
+    <md-toolbar layout="row">
+
+      <span class="md-toolbar-tools" translate>User preferences</span>
+
+      <span flex></span>
+
+      <md-button class="md-icon-button" aria-label="{{'Save'|translate}}" type="submit" ng-if="!$ctrl.readOnly">
+        <md-tooltip><translate>Save</translate></md-tooltip>
+        <md-icon class="material-icons"> save </md-icon>
+      </md-button>
+
+    </md-toolbar>
+
+    <flash-message duration="15000" show-close="true" name="flash-result"></flash-message>
+
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab>
+        <md-tab-label><translate>Map</translate></md-tab-label>
+        <md-tab-body>
+          <md-content class="md-padding" layout="column">
+
+            <h3 class="md-title" translate>Map preferences</h3>
+
+            <md-input-container flex="66">
+              <label translate>Tileset provider</label>
+              <md-select name="defaultProvider" ng-model="model.map.defaultProvider" placeholder="{{'Choose a tileset provider'|translate}}" style="width: 100%;">
+                <md-option ng-value="opt.id" ng-repeat="opt in $ctrl.mapProviders">{{ opt.name }}</md-option>
+              </md-select>
+              <div ng-messages="userPrefsForm.defaultProvider.$error" role="alert" ng-if="userPrefsForm.$submitted || userPrefsForm.defaultProvider.$touched">
+                <div ng-message="required" translate>you need to choose the map tileset provider.</div>
+              </div>
+            </md-input-container>
+
+            <fieldset flex="66">
+              <legend translate>Centered on</legend>
+              <div layout="row" layout-align="start center">
+                <md-input-container flex="50">
+                  <label translate>latitude</label>
+                  <input type="number" ng-model="model.map.lat">
+                </md-input-container>
+                <md-input-container flex="50">
+                  <label translate>latitude</label>
+                  <input type="number" ng-model="model.map.lat">
+                </md-input-container>
+                <md-button class="md-icon-button" ng-click="" aria-label="{{'Use current position'|translate}}">
+                  <md-tooltip><translate>Use current position</translate></md-tooltip>
+                  <md-icon class="material-icons"> my_location </md-icon>
+                </md-button>
+              </div>
+            </fieldset>
+
+            <md-input-container flex="33">
+              <label translate>Zoom level</label>
+              <input type="number" ng-model="model.map.zoom" min="6" max="19" style="width: 100%;">
+            </md-input-container>
+
+          </md-content>
+        </md-tab-body>
+      </md-tab>
+
+      <md-tab>
+        <md-tab-label><translate>Home</translate></md-tab-label>
+        <md-tab-body>
+          <md-content class="md-padding" layout="column">
+
+            <h3 class="md-title" translate>Home's default content</h3>
+
+            <p class="md-body-1" translate>Here you can choose an item to be shown by default in the home page:</p>
+
+            <md-radio-group ng-model="model.home.display.type">
+              <div layout="column">
+                <md-radio-button ng-value="null" aria-label="{{'None' | translate}}">
+                   <translate>None</translate>
+                </md-radio-button>
+              </div>
+
+              <div layout="row" layout-align="start center">
+                <md-radio-button ng-value="'dashboard'" aria-label="{{'Dashboard' | translate}}">
+                  <translate>Dashboard</translate>
+                </md-radio-button>
+
+                <div layout="row" style="margin-left: 50px;" flex>
+                  <md-input-container>
+                    <label translate>Dashboard</label>
+                    <md-select name="dashboard"
+                               ng-model="model.home.display.target"
+                               placeholder="{{'Choose a dashboard'|translate}}"
+                               ng-disabled="model.home.display.type!='dashboard'"
+                               ng-required="model.home.display.type=='dashboard'">
+                      <md-option ng-value="opt.id" ng-repeat="opt in $ctrl.dashboards">
+                        {{ opt.nsName }} :: {{ opt.name }}
+                      </md-option>
+                    </md-select>
+                    <div ng-messages="userPrefsForm.dashboard.$error" role="alert" ng-if="userPrefsForm.$submitted || userPrefsForm.dashboard.$touched">
+                      <div ng-message="required" translate>you need to choose a dashboard.</div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+
+            </md-radio-group>
+
+          </md-content>
+        </md-tab-body>
+      </md-tab>
+
+    </md-tabs>
+
+  </form>
