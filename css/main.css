@@ -1,0 +1,76 @@
+
+body {
+  font-family: Arial, helvetica, sans-serif;
+}
+
+/* these are used to resize font-icons when necessary */
+.s12 { font-size: 12px; }
+.s16 { font-size: 16px; }
+.s20 { font-size: 20px; }
+.s24 { font-size: 24px; }
+.s32 { font-size: 32px; }
+.s48 { font-size: 48px; }
+
+.navbar { border-radius:0; }
+.nav.navbar-nav.navbar-right { margin-right: 8px; }
+
+/* required to put dialogs over the map */
+md-backdrop.md-dialog-backdrop { z-index: 999; }
+.md-dialog-container { z-index: 1000; }
+
+.main-menu { z-index: 10000; }
+[@role="tooltip"] { z-index: 11000; }
+
+.active { color: red; font-weight: bold }
+
+.flex-h {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+div.alert-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999; 
+    border-radius: 0px
+}
+
+label { overflow: visible !important; }
+
+div.tabContent {
+    background-color: #f8f8f8;
+}
+
+md-sidenav {
+  overflow: visible;
+}
+
+.md-toolbar-tools[draggable=true] {
+    cursor: pointer;
+}
+
+md-backdrop.md-select-backdrop {
+    z-index:1051;
+}
+
+.md-select-menu-container {
+    z-index:1052;
+}
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    z-index:1051;
+}
+
+div.md-toolbar-tools md-input-container {
+    background-color: rgb(255,255,255);
+}
+div.md-toolbar-tools md-input-container md-select-value .md-text {
+    color: rgb(0,0,0);
+}
+
+nvd3 { background-color: rgb(255,255,255); }
+
+
