@@ -58,11 +58,12 @@ define([ 'require',], function ( require ) {
             
         }
         $ctrl.scanStart = function () {
-            console.log('version 1.1');
+            console.log('version 1.2');
             $scope.state = !$scope.state;    
             const reader = new NDEFReader();   
             reader.scan();
             reader.onreading = ({message,serialNumber}) =>{
+                let msgValue;
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
                 for (const record of message.records) {
