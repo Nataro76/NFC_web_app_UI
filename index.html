@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orisun's Skeleton App</title>
+
+    <!-- AngularJS Material UI -->
+    <link rel="stylesheet" href="css/angular-material.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="stylesheet" href="https://beta.orisun-iot.com/resources/css/splashscreen.css">
+<script type="text/javascript" src="https://beta.orisun-iot.com/resources/js/splashscreen.js"></script></head>
+
+  <body>
+    <script type="text/javascript">
+splashscreen.create("splashscreen.html");
+</script>
+
+  <div bf-compile-after="appReady" layout="column" flex layout-fill
+        ng-controller="AppCtrl as $ctrl"
+        id='#popupContainer'
+        ng-cloak>
+
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 translate>Skeleton App</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="{{ 'Home' | translate }}" ui-sref="home">
+          <md-tooltip><translate>Home</translate></md-tooltip>
+          <md-icon class="material-icons">home</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="{{ 'About' | translate }}" ui-sref="about">
+          <md-tooltip><translate>About</translate></md-tooltip>
+          <md-icon class="material-icons">info</md-icon>
+        </md-button>
+
+        <bf-user-menu></bf-user-menu>
+
+      </div>
+    </md-toolbar>
+
+    <ui-view layout="column" layout-fill flex>
+      
+    </ui-view>
+
+  </div>
+
+    <!-- we are going to use RequireJS to pull the app -->
+
+    <script src="https://beta.orisun-iot.com/resources/js/require-2.3.6.min.js" data-main="require.main.js"></script>
+  </body>
+</html>
