@@ -2,8 +2,8 @@
   <h1 class='md-display-2'>Nfc Web app test</h1>
   <div layout="column">
     <!-- <md-button class="md-raised" ng-click="$ctrl.fun()"><div>Start scanning</div></md-button>> -->
-    <md-button class="md-raised" ng-click="state=!state"><div>
-      <div ng-if="state===true">
+    <md-button class="md-raised" ng-click="$ctrl.scanStart()"><div>
+      <div ng-if="state">
         End procedure
               </div>
               <div ng-if="!state">
@@ -12,14 +12,14 @@
     </md-button>
   </div>
 
-  <div ng-if="state===true">
+  <div ng-if="state">
     <!-- <div layout="row" layout-sm="column" layout-align="space-around"> -->
       <md-progress-linear md-mode="indeterminate"></md-progress-linear>
       <md-card>
         <img ng-src="nfc_contact1.png" class="md-card-image" alt="Washed Out">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">Scan tag now</span>
+            <span class="md-headline">You can scan your tag now</span>
           </md-card-title-text>
         </md-card-title>
     </div>
