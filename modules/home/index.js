@@ -64,6 +64,19 @@ define([ 'require',], function ( require ) {
             reader.onreading = ({message,serialNumber}) =>{
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
+                for (const record of message.records) {
+                    log(`> Record type:   ${record.recordType}`);
+                     switch(record.recordType){
+                        case "text":
+                  console.assert(record.recordType === "text");
+                  const textDecoder = new TextDecoder(record.encoding);
+                  msgValue= `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
+                  break;
+                       default:
+                       msgValue=0;
+                       break;
+                     }
+                    }
             }                                                                                
   
         };
