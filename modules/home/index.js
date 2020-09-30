@@ -58,15 +58,15 @@ define([ 'require',], function ( require ) {
             
         }
         $ctrl.scanStart = function () {
-            $scope.state = !$scope.state; 
-            console.log('version 1.0');
+            console.log('version 1.1');
+            $scope.state = !$scope.state;    
             const reader = new NDEFReader();   
             reader.scan();
             reader.onreading = ({message,serialNumber}) =>{
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
                 for (const record of message.records) {
-                    log(`> Record type:   ${record.recordType}`);
+                    console.log(`> Record type:   ${record.recordType}`);
                      switch(record.recordType){
                         case "text":
                   console.assert(record.recordType === "text");
