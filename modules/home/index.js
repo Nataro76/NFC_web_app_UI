@@ -67,7 +67,7 @@ define([ 'require',], function ( require ) {
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
                 for (const record of message.records) {
-                    console.log(`> Record type:   ${record.recordType}`);
+                    window.alert(`> Record type:   ${record.recordType}`);
                      switch(record.recordType){
                         case "text":
                   console.assert(record.recordType === "text");
@@ -79,7 +79,7 @@ define([ 'require',], function ( require ) {
                        break;
                      }
                     }
-                    window.alert('The tag read: '+ serialNumber);
+                    window.alert('You scanned the '+ serialNumber+' tag.');
             }                                                                                
         };
 
