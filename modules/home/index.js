@@ -79,8 +79,8 @@ define([ 'require',], function ( require ) {
                        break;
                      }
                     }
+                    window.alert('The tag read: '+ serialNumber);
             }                                                                                
-  window.alert('The tag read: '+ serialNumber);
         };
 
         $ctrl.fun = function () {
