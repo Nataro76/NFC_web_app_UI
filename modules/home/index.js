@@ -35,7 +35,6 @@ define([ 'require',], function ( require ) {
         };
 
         $ctrl.ChromSamplesInit = function(){
-            window.alert('I am batman');
             $ctrl.ChromeSamples = {
             
                 setStatus: function(status) {
@@ -59,7 +58,7 @@ define([ 'require',], function ( require ) {
             
         }
         $ctrl.scanStart = function () {
-            console.log('version 1.1');
+//             window.alert('version 1.1');
             $scope.state = !$scope.state;    
             const reader = new NDEFReader();   
             reader.scan();
@@ -76,12 +75,12 @@ define([ 'require',], function ( require ) {
                   msgValue= `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
                   break;
                        default:
-                       msgValue=0;
+                       msgValue=serialNumber;
                        break;
                      }
                     }
             }                                                                                
-  
+  window.alert('The tag read: '+ serialNumber);
         };
 
         $ctrl.fun = function () {
