@@ -35,6 +35,7 @@ define([ 'require',], function ( require ) {
         };
 
         $ctrl.ChromSamplesInit = function(){
+            window.alert('I am batman');
             $ctrl.ChromeSamples = {
             
                 setStatus: function(status) {
