@@ -63,6 +63,7 @@ define([ 'require',], function ( require ) {
             const reader = new NDEFReader();   
             reader.scan();
             reader.onreading = ({message,serialNumber}) =>{
+                let ADDR
                 let msgValue;
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
@@ -73,7 +74,8 @@ define([ 'require',], function ( require ) {
                             try{
                   console.assert(record.recordType === "text");
                   const textDecoder = new TextDecoder(record.encoding);
-                  msgValue= `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
+                  ADDR = `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
+                  msgValue = msgValue.match(/(\d+)/);
                   break;
                   }
                             catch(e){
