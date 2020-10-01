@@ -75,7 +75,7 @@ define([ 'require',], function ( require ) {
                   console.assert(record.recordType === "text");
                   const textDecoder = new TextDecoder(record.encoding);
                   ADDR = `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
-                  msgValue = (String(ADDR)).substr(4);
+                  msgValue = ADDR.ADDR;
                   break;
                   }
                             catch(e){
