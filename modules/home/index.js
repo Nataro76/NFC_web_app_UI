@@ -70,16 +70,23 @@ define([ 'require',], function ( require ) {
                     window.alert(`> Record type:   ${record.recordType}`);
                      switch(record.recordType){
                         case "text":
+                            try{
                   console.assert(record.recordType === "text");
                   const textDecoder = new TextDecoder(record.encoding);
                   msgValue= `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
+                  window.alert('You scanned the '+ serialNumber+' tag.');
+                            }
+                            catch(e){
+                                window.alert(e);
+                            }
                   break;
                        default:
                        msgValue=serialNumber;
+                       window.alert('You scanned the '+ serialNumber+' tag.');
                        break;
                      }
                     }
-                    window.alert('You scanned the '+ serialNumber+' tag.');
+                    
             }                                                                                
         };
 
