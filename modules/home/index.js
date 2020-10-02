@@ -57,7 +57,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.24');
+            console.log('Beta version 1.25');
 
         };
 
@@ -88,8 +88,9 @@ define([ 'require',], function ( require ) {
             
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
-            const reader = new NDEFReader();   
-            reader.scan({ signal: controller.signal });
+            // const reader = new NDEFReader(); 
+            // { signal: controller.signal }  
+            reader.scan();
             reader.onreading =( function(){
                 $ctrl.result=list;
                 window.alert('You scanned the '+list+' tag.');
@@ -107,7 +108,7 @@ define([ 'require',], function ( require ) {
         };
 
         $scope.$on('$destroy', function() {
-            controller.abort();
+           
 
         });
 //here all the function that were used as a class
