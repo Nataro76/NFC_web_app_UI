@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.52/network testing');
+            console.log('Beta version 1.53/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -112,7 +112,8 @@ let tagValue=String(serial);
 document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+tagValue);
 dbCheck(tagValue);
 }
-
+$ctrl.beacon;
+$ctrl.tag;
 function dbCheck(tagADDR){
     const REL_TYPE_INSTALLATION = 11;
     const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
@@ -129,15 +130,15 @@ function dbCheck(tagADDR){
 
         $q.all(
             BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
-                window.alert(subjects.length===1?subjects[0].id:null);
-                return ( subjects.length === 1 ?subjects[0].id : null );
+                $ctrl.beacon=subjects.length===1?subjects[0].id:null;
+                return $ctrl.beacon;
             }),
 
             BFSubjects.search({ subjectTypeSid:'butachimie-person', rules: [
                 { path: '{serialNo}', pred: 'eq', value:serialNo }
             ] }).then(function( subjects ) {
-                return ( subjects.length === 1 ?
-subjects[0].id : null );
+                window.alert( subjects.length === 1 ?subjects[0].id : null );
+                return ( subjects.length === 1 ?subjects[0].id : null );
             })
 
         ).then(function ( data ) {
