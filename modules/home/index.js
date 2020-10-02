@@ -57,7 +57,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.23');
+            console.log('Beta version 1.24');
 
         };
 
