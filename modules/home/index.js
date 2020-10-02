@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.59/network testing');
+            console.log('Beta version 1.6/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -157,15 +157,15 @@ REL_TYPE_INSTALLATION }).then(function(installations) {
                         start_vt:    (new Date()).toISOString(),
 
                     })
-//                     .then( function resolve( ) {
-//                         // nothing to do
+                    .then( function resolve( ) {
+                        // nothing to do
 
-//                     }
-//                     , function reject ( errOrResponse ) {
-//                         var message = decodeHTTPResponse(
-// errOrResponse );
-//                         log.error( message );
-//                     });
+                    }
+                    , function reject ( errOrResponse ) {
+                        var message = decodeHTTPResponse(
+errOrResponse );
+                        log.error( message );
+                    });
                 }
 
                 if ( installations.length > 1 ) {
