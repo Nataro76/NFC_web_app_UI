@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.57/network testing');
+            console.log('Beta version 1.58/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   const textDecoder = new TextDecoder(record.encoding);
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                   ADDR = String(ADDR.match(/(\d+)/));
-                  msgValue = ADDR.substr(0,7);
+                  msgValue = ADDR.substr(0,8);
                   //msgValue=msgValue.substr(0,7);
                   break;
                   }
@@ -135,7 +135,7 @@ function dbCheck(tagADDR){
             }),
 
             tag: BFSubjects.search({typeSid:'butachimie-person', rules: [
-                { path: '{serialNo}', pred: 'eq', value:serialNo }
+                { path: '{serialNo}', pred: '~*', value:serialNo }
             ] }).then(function( subjects ) {
                 return ( subjects.length === 1 ?subjects[0].id : null );
             })
