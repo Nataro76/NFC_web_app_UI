@@ -86,8 +86,9 @@ define([ 'require',], function ( require ) {
                      }
                      }
                     window.alert('You scanned the '+msgValue+ ' tag');
+                    Serialcheck(msgValue);
                     };
-    
+                    
               
 
         };
@@ -103,7 +104,8 @@ define([ 'require',], function ( require ) {
 //here all the function that were used as a class
 function Serialcheck(serial){
 let tagValue=String(serial);
-dbCheck(tagValue);
+window.alert('Checking for tag '+serial);
+//dbCheck(tagValue);
 }
 
 function dbCheck(tagADDR){
