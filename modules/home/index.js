@@ -70,7 +70,7 @@ define([ 'require',], function ( require ) {
                   console.assert(record.recordType === "text");
                   const textDecoder = new TextDecoder(record.encoding);
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
-                  msgValue = ADDR   //.match(/(\d+)/);
+                  msgValue = ADDR.substr(4);
                   break;
                   }
                             catch(e){
