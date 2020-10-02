@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.56/network testing');
+            console.log('Beta version 1.57/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -128,22 +128,22 @@ function dbCheck(tagADDR){
     }
     
 
-        $q.all(
-            BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
+        $q.all({
+            beacon: BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                 $ctrl.beacon=subjects.length===1?subjects[0].id:null;
                 return $ctrl.beacon;
             }),
 
-            BFSubjects.search({typeSid:'butachimie-person', rules: [
+            tag: BFSubjects.search({typeSid:'butachimie-person', rules: [
                 { path: '{serialNo}', pred: 'eq', value:serialNo }
             ] }).then(function( subjects ) {
                 return ( subjects.length === 1 ?subjects[0].id : null );
             })
-
+        }
         ).then(function ( data ) {
             console.log("data:", data);
-            var tagId = data[0];
-            var personId = data[1];
+            var tagId = data.beacon;
+            var personId = data.tag;
             // check if
             // BFInstallationsService
             BFInstallation.search({ subjId: tagId, relType:
