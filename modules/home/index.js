@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.45/network testing');
+            console.log('Beta version 1.46/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -116,6 +116,10 @@ dbCheck(tagValue);
 function dbCheck(tagADDR){
     const REL_TYPE_INSTALLATION = 11;
     const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
+    let serialNo=null;;
+    if(typeof tagADDR!='string'){
+        serialNo=tagADDR;
+    }
     
 
         $ctrl.all(
