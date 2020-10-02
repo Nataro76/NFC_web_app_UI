@@ -12,7 +12,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
               templateUrl: require.toUrl('./template.html')
           });
       }])
-      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','BFInstallationsService','BFSubjectsService', function ( $scope, $element, userPrefs,BFauth, BFInstall,BFSubjects) {
+      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','BFInstallationsService','BFSubjectsService','$q', function ( $scope, $element, userPrefs,BFauth, BFInstall,BFSubjects,q) {
 
         var $ctrl = this; 
         function errorFun(){
@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.48/network testing');
+            console.log('Beta version 1.49/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
