@@ -164,7 +164,7 @@ REL_TYPE_INSTALLATION }).then(function(installations) {
                     , function reject ( errOrResponse ) {
                         var message = decodeHTTPResponse(
 errOrResponse );
-                        console.error( message );
+                        console.log( message );
                     });
                 }
 
