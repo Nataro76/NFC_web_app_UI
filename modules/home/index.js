@@ -85,18 +85,7 @@ define([ 'require',], function ( require ) {
                      }
                     window.alert('You scanned the '+msgValue+ ' tag');
                     };
-        
-                    $scope.$apply( function() {
-                        $scope.state = !$scope.state;
-                    });
-                   
-
-
-            
-            // controller.signal.onabort = event => {
-            //     window.alert('You waited for too long, please click "pair" again');
-            //   };
-            // setTimeout(() => controller.abort(), 20_000);
+    
               
 
         };
