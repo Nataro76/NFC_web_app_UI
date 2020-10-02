@@ -180,5 +180,5 @@ errOrResponse );
 
         });
 }
-    }]);
+    }]);//the end
 });
