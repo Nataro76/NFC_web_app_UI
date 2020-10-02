@@ -23,7 +23,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.28');
+            console.log('Beta version 1.29');
 
         };
 
@@ -83,14 +83,14 @@ define([ 'require',], function ( require ) {
                        
                      }
                      }
-                    
-            
+                    window.alert('You scanned the '+msgValue+ ' tag');
+                    };
         
                     $scope.$apply( function() {
                         $scope.state = !$scope.state;
                     });
-                    return msgValue;
-            };
+                   
+
 
             
             // controller.signal.onabort = event => {
