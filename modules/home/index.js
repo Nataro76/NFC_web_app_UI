@@ -141,6 +141,7 @@ function dbCheck(tagADDR){
             })
 
         ).then(function ( data ) {
+            console.log("data:", data);
             var tagId = data[0];
             var personId = data[1];
             // check if
