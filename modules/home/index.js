@@ -40,14 +40,14 @@ define([ 'require',], function ( require ) {
                break;
                
              }
-             window.alert('You scanned the '+ msgValue+' tag.');
-            }
+             }
             
     
 
             $scope.$apply( function() {
                 $scope.state = !$scope.state;
             });
+            return msgValue;
         }
         function errorFun(){
             console.log('Something went wrong somewhere');
@@ -85,15 +85,20 @@ define([ 'require',], function ( require ) {
             
         }
         $ctrl.scanStart = function () {
+            
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
             const reader = new NDEFReader();   
             reader.scan({ signal: controller.signal });
-            reader.onreading = list; 
+            reader.onreading =( function(){
+                $ctrl.result=list;
+                window.alert('You scanned the '+list+' tag.');
+            }); 
             controller.signal.onabort = event => {
                 window.alert('You waited for too long, please click "pair" again');
               };
-            setTimeout(() => controller.abort(), 20_000);   
+            setTimeout(() => controller.abort(), 20_000);
+            dbCheck()   
 
         };
 
