@@ -63,7 +63,7 @@ define([ 'require',], function ( require ) {
                 console.log('message: ' + message);
                 console.log('Serial Number: ' + serialNumber);
                 for (const record of message.records) {
-                    window.alert(`> Record type:   ${record.recordType}`);
+                    console.log(`> Record type:   ${record.recordType}`);
                      switch(record.recordType){
                         case "text":
                             try{
@@ -105,6 +105,7 @@ define([ 'require',], function ( require ) {
 function Serialcheck(serial){
 let tagValue=String(serial);
 window.alert('Checking for tag '+serial);
+document.getElementById("displayNum").innerHTML=serial;
 //dbCheck(tagValue);
 }
 
