@@ -23,9 +23,15 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.36');
-
-        };
+            console.log('Beta version 1.37');
+            try{
+                authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
+        
+            }
+            catch(e){
+                console.log(e);
+            }
+            };
 
         $ctrl.ChromSamplesInit = function(){
             $ctrl.ChromeSamples = {
@@ -105,8 +111,8 @@ define([ 'require',], function ( require ) {
 function Serialcheck(serial){
 let tagValue=String(serial);
 window.alert('Checking for tag '+serial);
-document.getElementById("displayNum").innerHTML=serial;
-//dbCheck(tagValue);
+document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+tagValue);
+dbCheck(tagValue);
 }
 
 function dbCheck(tagADDR){

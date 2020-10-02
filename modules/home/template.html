@@ -1,7 +1,6 @@
 <div layout="column" layout-padding>
   <h1 class='md-display-2'>Nfc Web app test</h1>
   <div layout="column">
-    <p id="displayNum"></p>
     <!-- <md-button class="md-raised" ng-click="$ctrl.fun()"><div>Start scanning</div></md-button>> -->
     <md-button class="md-raised" ng-click="$ctrl.scanStart()"><div>
       <div ng-if="state">
@@ -15,6 +14,7 @@
 
   <div ng-if="state">
     <!-- <div layout="row" layout-sm="column" layout-align="space-around"> -->
+      <p id="displayNum"></p>
       <md-progress-linear md-mode="indeterminate"></md-progress-linear>
             <span class="md-headline">You can scan your tag now</span>
 
