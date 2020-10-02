@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.53/network testing');
+            console.log('Beta version 1.55/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -134,7 +134,7 @@ function dbCheck(tagADDR){
                 return $ctrl.beacon;
             }),
 
-            BFSubjects.search({ subjectTypeSid:'butachimie-person', rules: [
+            BFSubjects.search({typeSid:'butachimie-person', rules: [
                 { path: '{serialNo}', pred: 'eq', value:serialNo }
             ] }).then(function( subjects ) {
                 window.alert( subjects.length === 1 ?subjects[0].id : null );
@@ -156,14 +156,16 @@ REL_TYPE_INSTALLATION }).then(function(installations) {
                         relType: REL_TYPE_INSTALLATION,
                         startVt:    (new Date()).toISOString(),
 
-                    }).then( function resolve( ) {
-                        // nothing to do
+                    })
+//                     .then( function resolve( ) {
+//                         // nothing to do
 
-                    }, function reject ( errOrResponse ) {
-                        var message = decodeHTTPResponse(
-errOrResponse );
-                        log.error( message );
-                    });
+//                     }
+//                     , function reject ( errOrResponse ) {
+//                         var message = decodeHTTPResponse(
+// errOrResponse );
+//                         log.error( message );
+//                     });
                 }
 
                 if ( installations.length > 1 ) {
