@@ -57,7 +57,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.25');
+            console.log('Beta version 1.26');
 
         };
 
@@ -94,12 +94,13 @@ define([ 'require',], function ( require ) {
             reader.onreading =( function(){
                 $ctrl.result=list;
                 window.alert('You scanned the '+list+' tag.');
+                dbCheck(list); 
             }); 
-            controller.signal.onabort = event => {
-                window.alert('You waited for too long, please click "pair" again');
-              };
-            setTimeout(() => controller.abort(), 20_000);
-            dbCheck()   
+            // controller.signal.onabort = event => {
+            //     window.alert('You waited for too long, please click "pair" again');
+            //   };
+            // setTimeout(() => controller.abort(), 20_000);
+              
 
         };
 
