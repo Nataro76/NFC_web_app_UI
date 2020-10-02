@@ -23,7 +23,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.32');
+            console.log('Beta version 1.33');
 
         };
 
@@ -70,7 +70,7 @@ define([ 'require',], function ( require ) {
                   console.assert(record.recordType === "text");
                   const textDecoder = new TextDecoder(record.encoding);
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
-                  msgValue = ADDR.substr(4);
+                  msgValue = ADDR.match(/(\d+)/);
                   break;
                   }
                             catch(e){
