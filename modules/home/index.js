@@ -88,7 +88,7 @@ define([ 'require',], function ( require ) {
             
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
-            // const reader = new NDEFReader(); 
+            const reader = new NDEFReader(); 
             // { signal: controller.signal }  
             reader.scan();
             reader.onreading =( function(){
