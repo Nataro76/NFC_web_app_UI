@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.55/network testing');
+            console.log('Beta version 1.56/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -137,7 +137,6 @@ function dbCheck(tagADDR){
             BFSubjects.search({typeSid:'butachimie-person', rules: [
                 { path: '{serialNo}', pred: 'eq', value:serialNo }
             ] }).then(function( subjects ) {
-                window.alert( subjects.length === 1 ?subjects[0].id : null );
                 return ( subjects.length === 1 ?subjects[0].id : null );
             })
 
@@ -153,8 +152,8 @@ REL_TYPE_INSTALLATION }).then(function(installations) {
                     BFInstallation.persist({
                         subject:    tagId,
                         object:     personId,
-                        relType: REL_TYPE_INSTALLATION,
-                        startVt:    (new Date()).toISOString(),
+                        relation_type: REL_TYPE_INSTALLATION,
+                        start_vt:    (new Date()).toISOString(),
 
                     })
 //                     .then( function resolve( ) {
