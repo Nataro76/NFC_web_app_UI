@@ -1,4 +1,4 @@
-define([ 'require','libbf'], function ( require ) {
+define([ 'require','libbf'], function ( require, libbf ) {
     'use strict';
 
     return angular.module("app.home", [ 'ui.router' ])
@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.39');
+            console.log('Beta version 1.4');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
