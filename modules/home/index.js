@@ -14,41 +14,7 @@ define([ 'require',], function ( require ) {
       }])
       .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','BFInstallationsService', function ( $scope, $element, userPrefs,BFauth, BFInstall) {
 
-        var $ctrl = this;
-       var list = ({message,serialNumber}) =>{
-        let ADDR
-        let msgValue;
-        console.log('message: ' + message);
-        console.log('Serial Number: ' + serialNumber);
-        for (const record of message.records) {
-            window.alert(`> Record type:   ${record.recordType}`);
-             switch(record.recordType){
-                case "text":
-                    try{
-          console.assert(record.recordType === "text");
-          const textDecoder = new TextDecoder(record.encoding);
-          ADDR = `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
-          msgValue = ADDR.ADDR;
-          break;
-          }
-                    catch(e){
-                        window.alert(e);
-                        break;
-                    }
-          default:
-               msgValue=serialNumber;
-               break;
-               
-             }
-             }
-            
-    
-
-            $scope.$apply( function() {
-                $scope.state = !$scope.state;
-            });
-            return msgValue;
-        }
+        var $ctrl = this; 
         function errorFun(){
             console.log('Something went wrong somewhere');
              
@@ -57,7 +23,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.27');
+            console.log('Beta version 1.28');
 
         };
 
@@ -91,11 +57,42 @@ define([ 'require',], function ( require ) {
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
             reader.scan();
-            reader.onreading =( function(){
-                $ctrl.result=list;
-                window.alert('You scanned the '+$ctrl.result+' tag.');
-                dbCheck(list); 
-            }); 
+            reader.onreading =({message,serialNumber}) =>{
+                let ADDR
+                let msgValue;
+                console.log('message: ' + message);
+                console.log('Serial Number: ' + serialNumber);
+                for (const record of message.records) {
+                    window.alert(`> Record type:   ${record.recordType}`);
+                     switch(record.recordType){
+                        case "text":
+                            try{
+                  console.assert(record.recordType === "text");
+                  const textDecoder = new TextDecoder(record.encoding);
+                  ADDR = `Text: ${textDecoder.decode(record.data)} (${record.lang})`;
+                  msgValue = ADDR.ADDR;
+                  break;
+                  }
+                            catch(e){
+                                window.alert(e);
+                                break;
+                            }
+                  default:
+                       msgValue=serialNumber;
+                       break;
+                       
+                     }
+                     }
+                    
+            
+        
+                    $scope.$apply( function() {
+                        $scope.state = !$scope.state;
+                    });
+                    return msgValue;
+            };
+
+            
             // controller.signal.onabort = event => {
             //     window.alert('You waited for too long, please click "pair" again');
             //   };
