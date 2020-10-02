@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.42');
+            console.log('Beta version 1.43/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -91,7 +91,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                        
                      }
                      }
-                    window.alert('You scanned the '+msgValue+ ' tag');
                     Serialcheck(msgValue);
                     };
                     
@@ -110,76 +109,76 @@ define([ 'require','libbf'], function ( require, libbf ) {
 //here all the function that were used as a class
 function Serialcheck(serial){
 let tagValue=String(serial);
-window.alert('Checking for tag '+serial);
 document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+tagValue);
 dbCheck(tagValue);
 }
 
 function dbCheck(tagADDR){
     const REL_TYPE_INSTALLATION = 11;
-    const decodeHTTPResponse = libbf.functions.decodeHTTPResponse;
-    console.log('entering: '+REL_TYPE_INSTALLATION+'//'+decodeHTTPResponse);
+    const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
+    
 
-//         $q.all(
-//             BFSubjects.search({ name: tagADDR,subjectTypeSid: 'butachimie-tag' }).then(function( subjects ) {
-//                 return ( subjects.length === 1 ?subjects[0].id : null );
-//             }),
+        $q.all(
+            BFSubjects.search({ name: tagADDR,subjectTypeSid: 'butachimie-tag' }).then(function( subjects ) {
+                window.alert(subjects.length===1?subjects[0].id:null);
+                return ( subjects.length === 1 ?subjects[0].id : null );
+            }),
 
-//             BFSubjects.search({ subjectTypeSid:'butachimie-person', rules: [
-//                 { path: '{serialNo}', pred: 'eq', value:serialNo }
-//             ] }).then(function( subjects ) {
-//                 return ( subjects.length === 1 ?
-// subjects[0].id : null );
-//             })
+            BFSubjects.search({ subjectTypeSid:'butachimie-person', rules: [
+                { path: '{serialNo}', pred: 'eq', value:serialNo }
+            ] }).then(function( subjects ) {
+                return ( subjects.length === 1 ?
+subjects[0].id : null );
+            })
 
-//         ).then(function ( data ) {
-//             var tagId = data[0];
-//             var personId = data[1];
-//             // check if
-//             // BFInstallationsService
-//             BFInstallation.search({ subjId: tagId, relType:
-// REL_TYPE_INSTALLATION }).then(function(installations) {
+        ).then(function ( data ) {
+            var tagId = data[0];
+            var personId = data[1];
+            // check if
+            // BFInstallationsService
+            BFInstallation.search({ subjId: tagId, relType:
+REL_TYPE_INSTALLATION }).then(function(installations) {
 
-//                 function install ( ) {
-//                     BFInstallation.persist({
-//                         subject:    tagId,
-//                         object:     personId,
-//                         relType: REL_TYPE_INSTALLATION,
-//                         startVt:    (new Date()).toISOString(),
+                function install ( ) {
+                    BFInstallation.persist({
+                        subject:    tagId,
+                        object:     personId,
+                        relType: REL_TYPE_INSTALLATION,
+                        startVt:    (new Date()).toISOString(),
 
-//                     }).then( function resolve( ) {
-//                         // nothing to do
+                    }).then( function resolve( ) {
+                        // nothing to do
 
-//                     }, function reject ( errOrResponse ) {
-//                         var message = decodeHTTPResponse(
-// errOrResponse );
-//                         log.error( message );
-//                     });
-//                 }
+                    }, function reject ( errOrResponse ) {
+                        var message = decodeHTTPResponse(
+errOrResponse );
+                        log.error( message );
+                    });
+                }
 
-//                 if ( installations.length > 1 ) {
-//                     // what to do here?
-//                     return;
-//                 }
-//                 if ( installations.length === 1 ) {
-//                     var inst = installations[0];
-//                     inst.endVt = (new Date()).toISOString();
-//                     BFInstallation.persist( inst ).then(
-// function resolve( ) {
-//                         install();
+                if ( installations.length > 1 ) {
+                    // what to do here?
+                    return;
+                }
+                if ( installations.length === 1 ) {
+                    var inst = installations[0];
+                    inst.endVt = (new Date()).toISOString();
+                    BFInstallation.persist( inst ).then(
+function resolve( ) {
+                        install();
 
-//                     }, function reject ( errOrResponse ) {
-//                         var message = decodeHTTPResponse(
-// errOrResponse );
-//                         log.error( message );
-//                     });
-//                 } else {
-//                     install();
-//                 }
+                    }, function reject ( errOrResponse ) {
+                        var message = decodeHTTPResponse(
+errOrResponse );
+                        log.error( message );
+                    });
+                } else {
+                    install();
+                }
 
-//             })
+            })
 
-//         });
+        });
 }
     }]);
 });
