@@ -57,7 +57,7 @@ define([ 'require',], function ( require ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.26');
+            console.log('Beta version 1.27');
 
         };
 
@@ -93,7 +93,7 @@ define([ 'require',], function ( require ) {
             reader.scan();
             reader.onreading =( function(){
                 $ctrl.result=list;
-                window.alert('You scanned the '+list+' tag.');
+                window.alert('You scanned the '+$ctrl.result+' tag.');
                 dbCheck(list); 
             }); 
             // controller.signal.onabort = event => {
