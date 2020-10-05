@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.71/network testing');
+            console.log('Beta version 1.72/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -87,6 +87,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 if($ctrl.temp!='undefined'){
                 if($ctrl.temp.length===2){
                     commitAssoc($ctrl.tag,$ctrl.beacon);
+                    window.alert($ctrl.tag+' and '+$ctrl.beacon+' were correctly associated!');
                     $ctrl.temp={};
                 }
             }
