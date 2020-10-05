@@ -20,6 +20,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
              
         }
         var commitAssoc= function(tagId,personId){
+            try{
             BFInstallation.search({ subjId: tagId, relType:
                 REL_TYPE_INSTALLATION }).then(function(installations) {
                 
@@ -61,14 +62,20 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 } else {
                                     install();
                                 }
+                            
+                            
                 
                             })
+                        }
+                            catch(e){
+                                console.log(e);
+                            }
         }
 
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.68/network testing');
+            console.log('Beta version 1.69/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -133,6 +140,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   msgValue = ADDR.substr(0,8);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $ctrl.beacon=subjects.length===1?subjects[0].id:null;
+                    console.log($ctrl.beacon);
                 })
                 break;
                   }
@@ -146,6 +154,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
                         $ctrl.tag=subjects.length === 1 ?subjects[0].id : null;
+                        console.log($ctrl.tag);
                     })
                        break;
                        
