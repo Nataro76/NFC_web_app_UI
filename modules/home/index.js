@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.82/troubleshooting');
+            console.log('Beta version 1.83/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -157,6 +157,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
                         console.log($scope.temp.tag);
+                        window.alert('You are'+ subjects[0].name);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
