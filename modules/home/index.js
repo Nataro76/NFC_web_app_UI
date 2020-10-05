@@ -66,16 +66,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
         }
 
         $ctrl.$onInit = function () {
-            $scope.$watch($ctrl.temp,function(){
-                if($ctrl.temp!='undefined'){
-                if($ctrl.temp.length===2){
-                    commitAssoc($ctrl.tag,$ctrl.beacon);
-                }
-            }
-            })
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.65/network testing');
+            console.log('Beta version 1.66/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -83,9 +76,17 @@ define([ 'require','libbf'], function ( require, libbf ) {
             catch(e){
                 console.log(e);
             }
+            $scope.$watch($ctrl.temp,function(){
+                if($ctrl.temp!='undefined'){
+                if($ctrl.temp.length===2){
+                    commitAssoc($ctrl.tag,$ctrl.beacon);
+                }
+            }
+            })
             };
 
         $ctrl.ChromSamplesInit = function(){
+            $ctrl.temp=null;
             $ctrl.ChromeSamples = {
             
                 setStatus: function(status) {
