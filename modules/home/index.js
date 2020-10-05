@@ -25,7 +25,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             BFInstallation.search({ subjId: tagId, relType:
                 REL_TYPE_INSTALLATION }).then(function(installations) {
-                window.alert('>Installation length: '+installations.length);
                                 function install ( ) {
                                     BFInstallation.persist({
                                         id: null,
@@ -33,7 +32,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                         object:     personId,
                                         relType: REL_TYPE_INSTALLATION,
                                         startVt:    (new Date()).toISOString(),
-                                        endVt: 'infinity',
+                                        
 
                 
                                     })
