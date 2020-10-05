@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.92/troubleshooting');
+            console.log('Beta version 1.93/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -143,7 +143,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   const textDecoder = new TextDecoder(record.encoding);
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                   ADDR = String(ADDR.match(/(\d+)/));
-                  msgValue = ADDR.substr(0,8);
+                  msgValue = ADDR.substring(0,index(ADDR,','));
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
                     $scope.size=Object.keys($scope.temp).length;
