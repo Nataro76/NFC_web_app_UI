@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.74/troubleshooting');
+            console.log('Beta version 1.75/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -83,7 +83,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             catch(e){
                 console.log(e);
             }
-            $scope.$watch($ctrl.temp,function(){
+            $scope.$watch($ctrl.temp.tag||$ctrl.temp.beacon,function(){
                 // if($ctrl.temp.length===2){
                 //     commitAssoc($ctrl.tag,$ctrl.beacon);
                 //     window.alert($ctrl.tag+' and '+$ctrl.beacon+' were correctly associated!');
@@ -141,7 +141,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   msgValue = ADDR.substr(0,8);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $ctrl.temp.beacon=subjects.length===1?subjects[0].id:null;
-                    console.log($ctrl.beacon);
+                    console.log($ctrl.temp.beacon);
                     document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                 })
                 break;
@@ -156,7 +156,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
                         $ctrl.temp.tag=subjects.length === 1 ?subjects[0].id : null;
-                        console.log($ctrl.tag);
+                        console.log($ctrl.temp.tag);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
