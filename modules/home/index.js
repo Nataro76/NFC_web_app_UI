@@ -31,7 +31,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                         id: null,
                                         subject:    tagId,
                                         object:     personId,
-                                        relation_type: REL_TYPE_INSTALLATION,
+                                        relType: REL_TYPE_INSTALLATION,
                                         start_vt:    (new Date()).toISOString(),
                                         end_vt: 'infinity',
 
@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.9/troubleshooting');
+            console.log('Beta version 1.91/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
