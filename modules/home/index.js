@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.69/network testing');
+            console.log('Beta version 1.7/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -141,6 +141,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $ctrl.beacon=subjects.length===1?subjects[0].id:null;
                     console.log($ctrl.beacon);
+                    document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                 })
                 break;
                   }
@@ -155,6 +156,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     ] }).then(function( subjects ) {
                         $ctrl.tag=subjects.length === 1 ?subjects[0].id : null;
                         console.log($ctrl.tag);
+                        document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
                        
