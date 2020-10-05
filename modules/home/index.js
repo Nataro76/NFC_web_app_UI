@@ -156,7 +156,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
-                        console.log($ctrl.temp.tag);
+                        console.log($scope.temp.tag);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
