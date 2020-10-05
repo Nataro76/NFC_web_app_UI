@@ -21,6 +21,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
         }
         var commitAssoc= function(tagId,personId){
             try{
+                const REL_TYPE_INSTALLATION = 11;
+                const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             BFInstallation.search({ subjId: tagId, relType:
                 REL_TYPE_INSTALLATION }).then(function(installations) {
                 
@@ -57,7 +59,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                     }, function reject ( errOrResponse ) {
                                         var message = decodeHTTPResponse(
                 errOrResponse );
-                                        log.error( message );
+                                        console.log( message );
                                     });
                                 } else {
                                     install();
@@ -75,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.86/troubleshooting');
+            console.log('Beta version 1.87/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -83,20 +85,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
             catch(e){
                 console.log(e);
             }
-            $scope.$watch('temp.tag',function(newVal,oldVal){
-                if($scope.temp.beacon){
-                if($scope.temp.length===2){
-                    commitAssoc($scope.temp.tag,$scope.temp.beacon);
-                    window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
-                    $scope.temp={};
-                }
-            }
-            
-            //window.alert('You changed something');
-            })
-            $scope.$watch('temp.beacon',function(newVal,oldVal){
-                if($scope.temp.tag){
-                if($scope.temp.length===2){
+            $scope.$watch('size',function(){
+                if($scope.temp){
+                if($scope.size===2){
                     commitAssoc($scope.temp.tag,$scope.temp.beacon);
                     window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
                     $scope.temp={};
@@ -155,7 +146,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   msgValue = ADDR.substr(0,8);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
-                    console.log('>Scope length: '+Object.keys($scope.temp).length);
+                    $scope.size=Object.keys($scope.temp).length;
                     document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                 })
                 break;
@@ -170,7 +161,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
-                        console.log('>Scope length: '+Object.keys($scope.temp).length);
+                        $scope.size=Object.keys($scope.temp).length;
                         window.alert('You are '+ subjects[0].name);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
