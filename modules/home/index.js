@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.84/troubleshooting');
+            console.log('Beta version 1.85/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -155,7 +155,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   msgValue = ADDR.substr(0,8);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
-                    console.log($scope.temp.beacon);
+                    console.log('>Scope length: '+$scope.temp.length);
                     document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                 })
                 break;
@@ -170,7 +170,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
-                        console.log($scope.temp.tag);
+                        console.log('>Scope length: '+$scope.temp.length);
                         window.alert('You are '+ subjects[0].name);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
