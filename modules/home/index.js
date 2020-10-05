@@ -19,11 +19,61 @@ define([ 'require','libbf'], function ( require, libbf ) {
             console.log('Something went wrong somewhere');
              
         }
+        var commitAssoc= function(tagId,personId){
+            BFInstallation.search({ subjId: tagId, relType:
+                REL_TYPE_INSTALLATION }).then(function(installations) {
+                
+                                function install ( ) {
+                                    BFInstallation.persist({
+                                        subject:    tagId,
+                                        object:     personId,
+                                        relation_type: REL_TYPE_INSTALLATION,
+                                        start_vt:    (new Date()).toISOString(),
+                
+                                    })
+                                    .then( function resolve( ) {
+                                        // nothing to do
+                
+                                    }
+                                    , function reject ( errOrResponse ) {
+                                        var message = decodeHTTPResponse(
+                errOrResponse );
+                                        console.log( message );
+                                    });
+                                }
+                
+                                if ( installations.length > 1 ) {
+                                    // what to do here?
+                                    return;
+                                }
+                                if ( installations.length === 1 ) {
+                                    var inst = installations[0];
+                                    inst.endVt = (new Date()).toISOString();
+                                    BFInstallation.persist( inst ).then(
+                function resolve( ) {
+                                        install();
+                
+                                    }, function reject ( errOrResponse ) {
+                                        var message = decodeHTTPResponse(
+                errOrResponse );
+                                        log.error( message );
+                                    });
+                                } else {
+                                    install();
+                                }
+                
+                            })
+        }
 
         $ctrl.$onInit = function () {
+            $ctrl.watch($ctrl.temp,function(){
+                if($ctrl.temp.length===2){
+                    commitAssoc($ctrl.tag,$ctrl.beacon);
+                }
+            })
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.6/network testing');
+            console.log('Beta version 1.62/network testing');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -78,8 +128,10 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                   ADDR = String(ADDR.match(/(\d+)/));
                   msgValue = ADDR.substr(0,8);
-                  //msgValue=msgValue.substr(0,7);
-                  break;
+                  BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
+                    $ctrl.beacon=subjects.length===1?subjects[0].id:null;
+                })
+                break;
                   }
                             catch(e){
                                 window.alert(e);
@@ -87,11 +139,16 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             }
                   default:
                        msgValue=serialNumber;
+                       BFSubjects.search({typeSid:'butachimie-person', rules: [
+                        { path: '{serialNo}', pred: '~*', val:serialNo }
+                    ] }).then(function( subjects ) {
+                        $ctrl.tag=subjects.length === 1 ?subjects[0].id : null;
+                    })
                        break;
                        
                      }
                      }
-                    Serialcheck(msgValue);
+                    //Serialcheck(msgValue);
                     };
                     
               
@@ -129,66 +186,66 @@ function dbCheck(tagADDR){
     
 
         $q.all({
-            beacon: BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
-                $ctrl.beacon=subjects.length===1?subjects[0].id:null;
-                return $ctrl.beacon;
-            }),
+            // beacon: BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
+            //     $ctrl.beacon=subjects.length===1?subjects[0].id:null;
+            //     return $ctrl.beacon;
+            // }),
 
-            tag: BFSubjects.search({typeSid:'butachimie-person', rules: [
-                { path: '{serialNo}', pred: '~*', val:serialNo }
-            ] }).then(function( subjects ) {
-                return ( subjects.length === 1 ?subjects[0].id : null );
-            })
-        }
-        ).then(function ( data ) {
-            console.log("data:", data);
-            var tagId = data.beacon;
-            var personId = data.tag;
+            // tag: BFSubjects.search({typeSid:'butachimie-person', rules: [
+            //     { path: '{serialNo}', pred: '~*', val:serialNo }
+            // ] }).then(function( subjects ) {
+            //     return ( subjects.length === 1 ?subjects[0].id : null );
+        //     // })
+        // }
+        // ).then(function ( data ) {
+        //     console.log("data:", data);
+        //     var tagId = data.beacon;
+        //     var personId = data.tag;
             // check if
             // BFInstallationsService
-            BFInstallation.search({ subjId: tagId, relType:
-REL_TYPE_INSTALLATION }).then(function(installations) {
+//             BFInstallation.search({ subjId: tagId, relType:
+// REL_TYPE_INSTALLATION }).then(function(installations) {
 
-                function install ( ) {
-                    BFInstallation.persist({
-                        subject:    tagId,
-                        object:     personId,
-                        relation_type: REL_TYPE_INSTALLATION,
-                        start_vt:    (new Date()).toISOString(),
+//                 function install ( ) {
+//                     BFInstallation.persist({
+//                         subject:    tagId,
+//                         object:     personId,
+//                         relation_type: REL_TYPE_INSTALLATION,
+//                         start_vt:    (new Date()).toISOString(),
 
-                    })
-                    .then( function resolve( ) {
-                        // nothing to do
+//                     })
+//                     .then( function resolve( ) {
+//                         // nothing to do
 
-                    }
-                    , function reject ( errOrResponse ) {
-                        var message = decodeHTTPResponse(
-errOrResponse );
-                        console.log( message );
-                    });
-                }
+//                     }
+//                     , function reject ( errOrResponse ) {
+//                         var message = decodeHTTPResponse(
+// errOrResponse );
+//                         console.log( message );
+//                     });
+//                 }
 
-                if ( installations.length > 1 ) {
-                    // what to do here?
-                    return;
-                }
-                if ( installations.length === 1 ) {
-                    var inst = installations[0];
-                    inst.endVt = (new Date()).toISOString();
-                    BFInstallation.persist( inst ).then(
-function resolve( ) {
-                        install();
+//                 if ( installations.length > 1 ) {
+//                     // what to do here?
+//                     return;
+//                 }
+//                 if ( installations.length === 1 ) {
+//                     var inst = installations[0];
+//                     inst.endVt = (new Date()).toISOString();
+//                     BFInstallation.persist( inst ).then(
+// function resolve( ) {
+//                         install();
 
-                    }, function reject ( errOrResponse ) {
-                        var message = decodeHTTPResponse(
-errOrResponse );
-                        log.error( message );
-                    });
-                } else {
-                    install();
-                }
+//                     }, function reject ( errOrResponse ) {
+//                         var message = decodeHTTPResponse(
+// errOrResponse );
+//                         log.error( message );
+//                     });
+//                 } else {
+//                     install();
+//                 }
 
-            })
+//             })
 
         });
 }
