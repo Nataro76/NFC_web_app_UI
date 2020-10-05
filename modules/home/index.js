@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.81/troubleshooting');
+            console.log('Beta version 1.82/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -83,18 +83,18 @@ define([ 'require','libbf'], function ( require, libbf ) {
             catch(e){
                 console.log(e);
             }
-            $scope.$watch('$ctrl.temp',function(){
-                if($ctrl.temp.length===2){
-                    commitAssoc($ctrl.tag,$ctrl.beacon);
-                    window.alert($ctrl.tag+' and '+$ctrl.beacon+' were correctly associated!');
-                    $ctrl.temp={};
+            $scope.$watch('temp',function(newVal,oldVal){
+                if($scope.temp.length===2){
+                    commitAssoc($scope.temp.tag,$scope.temp.beacon);
+                    window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
+                    $scope.temp={};
                 }
             //window.alert('You changed something');
             },true)
             };
 
         $ctrl.ChromSamplesInit = function(){
-            $ctrl.temp={};
+            $scope.temp={};
             $ctrl.ChromeSamples = {
             
                 setStatus: function(status) {
@@ -140,8 +140,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   ADDR = String(ADDR.match(/(\d+)/));
                   msgValue = ADDR.substr(0,8);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
-                    $ctrl.temp.beacon=subjects.length===1?subjects[0].id:null;
-                    console.log($ctrl.temp.beacon);
+                    $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
+                    console.log($scope.temp.beacon);
                     document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                 })
                 break;
@@ -155,7 +155,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                        BFSubjects.search({typeSid:'butachimie-person', rules: [
                         { path: '{serialNo}', pred: '~*', val:msgValue }
                     ] }).then(function( subjects ) {
-                        $ctrl.temp.tag=subjects.length === 1 ?subjects[0].id : null;
+                        $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
                         console.log($ctrl.temp.tag);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
