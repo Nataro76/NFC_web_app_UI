@@ -35,12 +35,11 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 
                                     })
                                     .then( function resolve( ) {
-                                        // nothing to do
+                                        window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
                 
                                     }
                                     , function reject ( errOrResponse ) {
-                                        var message = decodeHTTPResponse(
-                errOrResponse );
+                                        var message = decodeHTTPResponse(errOrResponse );
                                         console.log( message );
                                     });
                                 }
@@ -52,13 +51,11 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 if ( installations.length === 1 ) {
                                     var inst = installations[0];
                                     inst.endVt = (new Date()).toISOString();
-                                    BFInstallation.persist( inst ).then(
-                function resolve( ) {
+                                    BFInstallation.persist( inst ).then(function resolve( ) {
                                         install();
                 
                                     }, function reject ( errOrResponse ) {
-                                        var message = decodeHTTPResponse(
-                errOrResponse );
+                                        var message = decodeHTTPResponse(errOrResponse );
                                         console.log( message );
                                     });
                                 } else {
@@ -77,7 +74,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.87/troubleshooting');
+            console.log('Beta version 1.89/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -89,8 +86,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 if($scope.temp){
                 if($scope.size===2){
                     commitAssoc($scope.temp.tag,$scope.temp.beacon);
-                    window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
                     $scope.temp={};
+                    $scope.size=1;
                 }
             }
             
