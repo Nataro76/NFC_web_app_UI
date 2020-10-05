@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.83/troubleshooting');
+            console.log('Beta version 1.84/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -83,14 +83,28 @@ define([ 'require','libbf'], function ( require, libbf ) {
             catch(e){
                 console.log(e);
             }
-            $scope.$watch('temp',function(newVal,oldVal){
+            $scope.$watch('temp.tag',function(newVal,oldVal){
+                if($scope.temp.beacon){
                 if($scope.temp.length===2){
                     commitAssoc($scope.temp.tag,$scope.temp.beacon);
                     window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
                     $scope.temp={};
                 }
+            }
+            
             //window.alert('You changed something');
-            },true)
+            })
+            $scope.$watch('temp.beacon',function(newVal,oldVal){
+                if($scope.temp.tag){
+                if($scope.temp.length===2){
+                    commitAssoc($scope.temp.tag,$scope.temp.beacon);
+                    window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
+                    $scope.temp={};
+                }
+            }
+            
+            //window.alert('You changed something');
+            })
             };
 
         $ctrl.ChromSamplesInit = function(){
@@ -157,7 +171,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
                         console.log($scope.temp.tag);
-                        window.alert('You are'+ subjects[0].name);
+                        window.alert('You are '+ subjects[0].name);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
