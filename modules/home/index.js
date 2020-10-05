@@ -75,7 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.8/troubleshooting');
+            console.log('Beta version 1.81/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -90,7 +90,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     $ctrl.temp={};
                 }
             //window.alert('You changed something');
-            })
+            },true)
             };
 
         $ctrl.ChromSamplesInit = function(){
