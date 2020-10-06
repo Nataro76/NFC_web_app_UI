@@ -38,7 +38,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 
                                     })
                                     .then( function resolve( ) {
-                                        window.alert($scope.temp.tag+' and '+$scope.temp.beacon+' were correctly associated!');
+                                        window.alert($ctrl.you+' and '+personId+' were correctly associated!');
                 
                                     }
                                     , function reject ( errOrResponse ) {
@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.98/troubleshooting');
+            console.log('Beta version 1.99/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
@@ -162,7 +162,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     ] }).then(function( subjects ) {
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
                         $scope.size=Object.keys($scope.temp).length;
-                        window.alert('You are '+ subjects[0].name);
+                        $ctrl.you=subjects[0].name;
+                        window.alert('You are '+ $ctrl.you);
                         document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     })
                        break;
