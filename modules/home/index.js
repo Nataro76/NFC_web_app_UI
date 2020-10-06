@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             try{
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            BFInstallation.search({ subjId: tagId, relType:
+            BFInstallation.search({ subjId: personId, relType:
                 REL_TYPE_INSTALLATION }).then(function(installations) {
                                 function install ( ) {
                                     BFInstallation.persist({
@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 1.97/troubleshooting');
+            console.log('Beta version 1.98/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
