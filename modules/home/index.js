@@ -23,22 +23,22 @@ define([ 'require','libbf'], function ( require, libbf ) {
             try{
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-                BFInstallation.search({objId: personId,relType:REL_TYPE_INSTALLATION}).then(function(installs){
-                    if(installs.length!=0){
-                        if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
-                        var inst = installations[0];
-                        inst.endVt = (new Date()).toISOString();
-                        BFInstallation.persist( inst ).then(function resolve( ) {
-                            attachTag();
+                // BFInstallation.search({objId: personId,relType:REL_TYPE_INSTALLATION}).then(function(installs){
+                //     if(installs.length!=0){
+                //         if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
+                //         var inst = installations[0];
+                //         inst.endVt = (new Date()).toISOString();
+                //         BFInstallation.persist( inst ).then(function resolve( ) {
+                //             attachTag();
     
-                        }, function reject ( errOrResponse ) {
-                            var message = decodeHTTPResponse(errOrResponse );
-                            console.log( message );
-                        });
-                    }
-                    }
-                 })
-                 function attachTag(){
+                //         }, function reject ( errOrResponse ) {
+                //             var message = decodeHTTPResponse(errOrResponse );
+                //             console.log( message );
+                //         });
+                //     }
+                //     }
+                //  })
+                //  function attachTag(){
             BFInstallation.search({ subjId: tagId, relType:
                 REL_TYPE_INSTALLATION }).then(function(installations) {
                                 function install ( ) {
@@ -85,7 +85,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             
                             }
                             })
-                        }
+                       // }
 
                         }
                             catch(e){
@@ -96,7 +96,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.11/troubleshooting');
+            console.log('Beta version 2.12/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
