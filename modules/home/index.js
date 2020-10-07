@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             try{
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-<<<<<<< HEAD
+
                 // BFInstallation.search({objId: personId,relType:REL_TYPE_INSTALLATION}).then(function(installs){
                 //     if(installs.length!=0){
                 //         if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
@@ -40,10 +40,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 //     }
                 //  })
                 //  function attachTag(){
-            BFInstallation.search({ subjId: tagId, relType:
-=======
             BFInstallation.search({ subjId: personId, relType:
->>>>>>> parent of 08d2aef... Update index.js
+
                 REL_TYPE_INSTALLATION }).then(function(installations) {
                                 function install ( ) {
                                     BFInstallation.persist({
@@ -100,11 +98,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-<<<<<<< HEAD
             console.log('Beta version 2.12/troubleshooting');
-=======
-            console.log('Beta version 1.99/troubleshooting');
->>>>>>> parent of 08d2aef... Update index.js
+
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
