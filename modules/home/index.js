@@ -20,11 +20,10 @@ define([ 'require','libbf'], function ( require, libbf ) {
              
         }
         var commitAssoc= function(tagId,personId){
-            try{
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
-                BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION}).then(function(installs){
+                BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
                     if(installs.length!=0){
                         if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
                         var inst = installations[0];
@@ -39,63 +38,61 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     }
                     }
                  })
-                 function attachTag(){
-            BFInstallation.search({ subjectId: personId, relType:
+                 var attachTag=() => {
+                     BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
+                         function install() {
+                             BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
+                                 BFInstallation.persist({
+                                     id: null,
+                                     subject: tagId,
+                                     object: personId,
+                                     relType: REL_TYPE_INSTALLATION,
+                                     startVt: (new Date()).toISOString(),
+                                     endVt: 'infinity',
+                                 })
+                                     .then(function resolve() {
+                                         window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
 
-                REL_TYPE_INSTALLATION }).then(function(installations) {
-                                function install ( ) {
-                                    BFInstallation.persist({
-                                        id: null,
-                                        subject:    tagId,
-                                        object:     personId,
-                                        relType: REL_TYPE_INSTALLATION,
-                                        startVt:    (new Date()).toISOString(),
-                                        endVt: 'infinity',
-                                        
+                                     },
+                                         function reject(errOrResponse) {
+                                             var message = decodeHTTPResponse(errOrResponse);
+                                             console.log(message);
+                                         });
+                             })
 
-                
-                                    })
-                                    .then( function resolve( ) {
-                                        window.alert($ctrl.you+' and '+personId+' were correctly associated!');
-                
-                                    }
-                                    , function reject ( errOrResponse ) {
-                                        var message = decodeHTTPResponse(errOrResponse );
-                                        console.log( message );
-                                    });
-                                }
-                
-                                if ( installations.length > 1 ) {
-                                    // what to do here?
-                                    return;
-                                }
-                                if ( installations.length === 1 ) {
-                                    if(confirm('This beacon was already paired to someone, the association has been removed')){
-                                    var inst = installations[0];
-                                    inst.endVt = (new Date()).toISOString();
-                                    BFInstallation.persist( inst ).then(function resolve( ) {
-                                        install();
-                
-                                    }, function reject ( errOrResponse ) {
-                                        var message = decodeHTTPResponse(errOrResponse );
-                                        console.log( message );
-                                    });
-                                }
-                                } 
-                                else {
-                                    install();
-                                }
-                            
-                            
-                            
-                            })
-                       }
 
-                        }
-                            catch(e){
-                                console.log(e);
-                            }
-        }
+
+
+                             if (installations.length > 1) {
+                                 // what to do here?
+                                 return;
+                             }
+                             if (installations.length === 1) {
+                                 if (confirm('This beacon was already paired to someone, the association has been removed')) {
+                                     var inst = installations[0];
+                                     inst.endVt = (new Date()).toISOString();
+                                     BFInstallation.persist(inst).then(function resolve() {
+                                         install();
+
+                                     }, function reject(errOrResponse) {
+                                         var message = decodeHTTPResponse(errOrResponse);
+                                         console.log(message);
+                                     });
+                                 }
+                             }
+                             else {
+                                 install();
+                             }
+
+
+
+                         }
+                     });
+
+
+                 }
+                }
+        //}
 
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
