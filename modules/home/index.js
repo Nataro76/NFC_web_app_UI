@@ -25,6 +25,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
                 BFInstallation.search({objId: personId,relType:REL_TYPE_INSTALLATION}).then(function(installs){
                     if(installs.length!=0){
+                        if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         BFInstallation.persist( inst ).then(function resolve( ) {
@@ -34,7 +35,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             var message = decodeHTTPResponse(errOrResponse );
                             console.log( message );
                         });
-
+                    }
                     }
                  })
                  function attachTag(){
@@ -67,6 +68,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                     return;
                                 }
                                 if ( installations.length === 1 ) {
+                                    if(confirm('This beacon was already paired to someone, the association has been removed')){
                                     var inst = installations[0];
                                     inst.endVt = (new Date()).toISOString();
                                     BFInstallation.persist( inst ).then(function resolve( ) {
@@ -81,7 +83,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 }
                             
                             
-                
+                            }
                             })
                         }
 
@@ -94,7 +96,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.1/troubleshooting');
+            console.log('Beta version 2.11/troubleshooting');
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
         
