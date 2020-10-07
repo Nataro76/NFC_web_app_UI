@@ -80,12 +80,14 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                         var message = decodeHTTPResponse(errOrResponse );
                                         console.log( message );
                                     });
-                                } else {
+                                }
+                                } 
+                                else {
                                     install();
                                 }
                             
                             
-                            }
+                            
                             })
                        // }
 
@@ -98,7 +100,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.12/troubleshooting');
+            console.log('Beta version 2.13/troubleshooting');
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
