@@ -35,69 +35,71 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             var message = decodeHTTPResponse(errOrResponse );
                             console.log( message );
                         });
+
+                    }
+                    function attachTag() {
+                        BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
+                            function install() {
+                                BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
+                                    BFInstallation.persist({
+                                        id: null,
+                                        subject: tagId,
+                                        object: personId,
+                                        relType: REL_TYPE_INSTALLATION,
+                                        startVt: (new Date()).toISOString(),
+                                        endVt: 'infinity',
+                                    })
+                                        .then(function resolve() {
+                                            window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
+   
+                                        },
+                                            function reject(errOrResponse) {
+                                                var message = decodeHTTPResponse(errOrResponse);
+                                                console.log(message);
+                                            });
+                                })
+   
+   
+   
+   
+                                if (installations.length > 1) {
+                                    // what to do here?
+                                    return;
+                                }
+                                if (installations.length === 1) {
+                                    if (confirm('This beacon was already paired to someone, the association has been removed')) {
+                                        var inst = installations[0];
+                                        inst.endVt = (new Date()).toISOString();
+                                        BFInstallation.persist(inst).then(function resolve() {
+                                            install();
+   
+                                        }, function reject(errOrResponse) {
+                                            var message = decodeHTTPResponse(errOrResponse);
+                                            console.log(message);
+                                        });
+                                    }
+                                }
+                                else {
+                                    install();
+                                }
+   
+   
+   
+                            }
+                        });
+   
+   
                     }
                     }
                  })
-                 var attachTag=() => {
-                     BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
-                         function install() {
-                             BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
-                                 BFInstallation.persist({
-                                     id: null,
-                                     subject: tagId,
-                                     object: personId,
-                                     relType: REL_TYPE_INSTALLATION,
-                                     startVt: (new Date()).toISOString(),
-                                     endVt: 'infinity',
-                                 })
-                                     .then(function resolve() {
-                                         window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
 
-                                     },
-                                         function reject(errOrResponse) {
-                                             var message = decodeHTTPResponse(errOrResponse);
-                                             console.log(message);
-                                         });
-                             })
-
-
-
-
-                             if (installations.length > 1) {
-                                 // what to do here?
-                                 return;
-                             }
-                             if (installations.length === 1) {
-                                 if (confirm('This beacon was already paired to someone, the association has been removed')) {
-                                     var inst = installations[0];
-                                     inst.endVt = (new Date()).toISOString();
-                                     BFInstallation.persist(inst).then(function resolve() {
-                                         install();
-
-                                     }, function reject(errOrResponse) {
-                                         var message = decodeHTTPResponse(errOrResponse);
-                                         console.log(message);
-                                     });
-                                 }
-                             }
-                             else {
-                                 install();
-                             }
-
-
-
-                         }
-                     });
-
-
-                 }
                 }
         //}
 
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.14/troubleshooting');
+            console.log('Beta version 2.15/troubleshooting');
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
@@ -114,8 +116,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     $scope.size=1;
                 }
             }
-            
-            //window.alert('You changed something');
             })
             };
 
@@ -226,71 +226,6 @@ function dbCheck(tagADDR){
     else{
         tagADDR=parseInt(tagADDR);
     }
-    
-
-        $q.all({
-            // beacon: BFSubjects.search({ name: tagADDR,typeSid: 'butachimie-tag' }).then(function( subjects ) {
-            //     $ctrl.beacon=subjects.length===1?subjects[0].id:null;
-            //     return $ctrl.beacon;
-            // }),
-
-            // tag: BFSubjects.search({typeSid:'butachimie-person', rules: [
-            //     { path: '{serialNo}', pred: '~*', val:serialNo }
-            // ] }).then(function( subjects ) {
-            //     return ( subjects.length === 1 ?subjects[0].id : null );
-        //     // })
-        // }
-        // ).then(function ( data ) {
-        //     console.log("data:", data);
-        //     var tagId = data.beacon;
-        //     var personId = data.tag;
-            // check if
-            // BFInstallationsService
-//             BFInstallation.search({ subjId: tagId, relType:
-// REL_TYPE_INSTALLATION }).then(function(installations) {
-
-//                 function install ( ) {
-//                     BFInstallation.persist({
-//                         subject:    tagId,
-//                         object:     personId,
-//                         relation_type: REL_TYPE_INSTALLATION,
-//                         start_vt:    (new Date()).toISOString(),
-
-//                     })
-//                     .then( function resolve( ) {
-//                         // nothing to do
-
-//                     }
-//                     , function reject ( errOrResponse ) {
-//                         var message = decodeHTTPResponse(
-// errOrResponse );
-//                         console.log( message );
-//                     });
-//                 }
-
-//                 if ( installations.length > 1 ) {
-//                     // what to do here?
-//                     return;
-//                 }
-//                 if ( installations.length === 1 ) {
-//                     var inst = installations[0];
-//                     inst.endVt = (new Date()).toISOString();
-//                     BFInstallation.persist( inst ).then(
-// function resolve( ) {
-//                         install();
-
-//                     }, function reject ( errOrResponse ) {
-//                         var message = decodeHTTPResponse(
-// errOrResponse );
-//                         log.error( message );
-//                     });
-//                 } else {
-//                     install();
-//                 }
-
-//             })
-
-        });
 }
     }]);//the end
 });
