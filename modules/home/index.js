@@ -23,21 +23,21 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
-                BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
-                    if(installs.length!=0){
-                        if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
-                        var inst = installations[0];
-                        inst.endVt = (new Date()).toISOString();
-                        BFInstallation.persist( inst ).then(function resolve( ) {
-                            attachTag();
+                // BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
+                //     if(installs.length!=0){
+                //         if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
+                //         var inst = installations[0];
+                //         inst.endVt = (new Date()).toISOString();
+                //         BFInstallation.persist( inst ).then(function resolve( ) {
+                //             attachTag();
     
-                        }, function reject ( errOrResponse ) {
-                            var message = decodeHTTPResponse(errOrResponse );
-                            console.log( message );
-                        });
+                //         }, function reject ( errOrResponse ) {
+                //             var message = decodeHTTPResponse(errOrResponse );
+                //             console.log( message );
+                //         });
 
-                    }
-                }
+                //     }
+                // }
 
                         BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
                             function install() {
@@ -49,6 +49,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                         relType: REL_TYPE_INSTALLATION,
                                         startVt: (new Date()).toISOString(),
                                         endVt: 'infinity',
+
                                     })
                                         .then(function resolve() {
                                             window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
@@ -68,7 +69,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                     return;
                                 }
                                 if (installations.length === 1) {
-                                    if (confirm('This beacon was already paired to someone, the association has been removed')) {
+                                    //if (confirm('This beacon was already paired to someone, the association has been removed')) {
                                         var inst = installations[0];
                                         inst.endVt = (new Date()).toISOString();
                                         BFInstallation.persist(inst).then(function resolve() {
@@ -78,7 +79,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                             var message = decodeHTTPResponse(errOrResponse);
                                             console.log(message);
                                         });
-                                    }
+                                    //}
                                 }
                                 else {
                                     install();
@@ -91,7 +92,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
    
    
                     
-                 })
+                 //})
 
                 }
         //}
@@ -100,6 +101,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
             console.log('Beta version 2.21/troubleshooting');
+
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
