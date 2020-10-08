@@ -99,7 +99,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.17/troubleshooting');
+            console.log('Beta version 2.19/troubleshooting');
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
@@ -168,9 +168,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
                     $scope.size=Object.keys($scope.temp).length;
-                    document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
                     window.alert('You scanned: '+$scope.temp.beacon);
-                })
+                    document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
+                    })
                 break;
                   }
                             catch(e){
