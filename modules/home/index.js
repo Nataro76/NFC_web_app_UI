@@ -39,16 +39,16 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 //     }
                 // }
 
-                        BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
+                        BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
                             function install() {
                                 // BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
                                     BFInstallation.persist({
                                         id: null,
-                                        subject: tagId,
-                                        object: personId,
-                                        relType: REL_TYPE_INSTALLATION,
-                                        startVt: (new Date()).toISOString(),
-                                        endVt: 'infinity',
+                                        subject:    tagId,
+                                        object:     personId,
+                                        relation_type: REL_TYPE_INSTALLATION,
+                                        start_vt:    (new Date()).toISOString(),
+                                        end_vt: 'infinity',
 
                                     })
                                         .then(function resolve() {
@@ -59,6 +59,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                                 var message = decodeHTTPResponse(errOrResponse);
                                                 console.log(message);
                                             });
+                                        }
                                 //})
    
    
@@ -87,7 +88,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
    
    
    
-                            }
+                            
                         });
    
    
@@ -101,6 +102,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
             console.log('Beta version 2.21/troubleshooting');
+
 
 
             try{
