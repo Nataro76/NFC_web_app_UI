@@ -52,6 +52,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 }
         //}
         $scope.attachTag= function(tagId,personId){
+            const REL_TYPE_INSTALLATION = 11;
+            const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
             function install() {
                  BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function(installations){
@@ -113,7 +115,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.25/troubleshooting');
+            console.log('Beta version 2.26/troubleshooting');
 
 
 
