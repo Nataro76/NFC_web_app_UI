@@ -169,6 +169,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 $ctrl.unpairing = function (){
     $scope.unpaired;
+    var reader = new NDEFReader();
     reader.scan();
             reader.onreading =({message,serialNumber}) =>{
                 let msgValue;
