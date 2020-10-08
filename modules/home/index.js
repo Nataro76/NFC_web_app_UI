@@ -43,7 +43,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             function install() {
                                 // BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
                                     BFInstallation.persist({
-                                        id: null,
+                                        //id: null,
                                         subject:    tagId,
                                         object:     personId,
                                         relation_type: REL_TYPE_INSTALLATION,
@@ -57,7 +57,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                         },
                                             function reject(errOrResponse) {
                                                 var message = decodeHTTPResponse(errOrResponse);
-                                                console.log(message);
+                                                window.alert(message);
                                             });
                                         }
                                 //})
