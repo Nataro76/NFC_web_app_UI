@@ -41,13 +41,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                         BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
                             function install() {
-                                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function(installations){
-                                     if(installations!=0){
-                                         installations[0].endVt=(new Date()).toISOString();
-                                         BFInstallation.persist(installations[0]);
-                                     }
-                                     else{}
-                                 })
+                                // BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
                                     BFInstallation.persist({
                                         id: null,
                                         subject:    tagId,
@@ -66,7 +60,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                                 window.alert(message);
                                             });
                                         }
-                               
+                                //})
    
    
    
