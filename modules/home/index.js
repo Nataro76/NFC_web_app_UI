@@ -115,7 +115,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             $scope.$watch('size',function(){
                 if($scope.temp){
                 if($scope.size===2){
-                    commitAssoc($scope.temp.beacon,$scope.temp.tag);
+                    commitAssoc($scope.temp.tag,$scope.temp.beacon);
                     $scope.temp={};
                     $scope.size=1;
                 }
