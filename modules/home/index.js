@@ -23,21 +23,22 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
-                // BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
-                //     if(installs.length!=0){
-                //         if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
-                //         var inst = installations[0];
-                //         inst.endVt = (new Date()).toISOString();
-                //         BFInstallation.persist( inst ).then(function resolve( ) {
-                //             attachTag();
+                BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
+                    if(installs.length!=0){
+                        if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
+                        var inst = installations[0];
+                        inst.endVt = (new Date()).toISOString();
+                        BFInstallation.persist( inst ).then(function resolve( ) {
+                            attachTag();
     
-                //         }, function reject ( errOrResponse ) {
-                //             var message = decodeHTTPResponse(errOrResponse );
-                //             console.log( message );
-                //         });
+                        }, function reject ( errOrResponse ) {
+                            var message = decodeHTTPResponse(errOrResponse );
+                            console.log( message );
+                        });
 
-                //     }
-                // }
+                    }
+                }
+            });
 
                         BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
                             function install() {
@@ -107,7 +108,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.21/troubleshooting');
+            console.log('Beta version 2.23/troubleshooting');
 
 
 
