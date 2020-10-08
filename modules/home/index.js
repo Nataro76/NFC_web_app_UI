@@ -29,7 +29,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         BFInstallation.persist( inst ).then(function resolve( ) {
-                            attachTag();
+                            $scope.attachTag(tagId,subjectId);
     
                         }, function reject ( errOrResponse ) {
                             var message = decodeHTTPResponse(errOrResponse );
@@ -40,63 +40,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 }
             });
 
-                        BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
-                            function install() {
-                                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function(installations){
-                                     if(installations!=0){
-                                         installations[0].endVt=(new Date()).toISOString();
-                                         BFInstallation.persist(installations[0]);
-                                     }
-                                     else{}
-                                 })
-                                    BFInstallation.persist({
-                                        id: null,
-                                        subject:    tagId,
-                                        object:     personId,
-                                        relType: REL_TYPE_INSTALLATION,
-                                        startVt:    (new Date()).toISOString(),
-                                        endVt: 'infinity',
 
-                                    })
-                                        .then(function resolve() {
-                                            window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
-   
-                                        },
-                                            function reject(errOrResponse) {
-                                                var message = decodeHTTPResponse(errOrResponse);
-                                                window.alert(message);
-                                            });
-                                        }
-                               
-   
-   
-   
-   
-                                if (installations.length > 1) {
-                                    // what to do here?
-                                    return;
-                                }
-                                if (installations.length === 1) {
-                                    //if (confirm('This beacon was already paired to someone, the association has been removed')) {
-                                        var inst = installations[0];
-                                        inst.endVt = (new Date()).toISOString();
-                                        BFInstallation.persist(inst).then(function resolve() {
-                                            install();
-   
-                                        }, function reject(errOrResponse) {
-                                            var message = decodeHTTPResponse(errOrResponse);
-                                            console.log(message);
-                                        });
-                                    //}
-                                }
-                                else {
-                                    install();
-                                }
-   
-   
-   
-                            
-                        });
    
    
                     
@@ -104,11 +48,69 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                 }
         //}
+        $scope.attachTag= function(tagId,personId){
+            BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
+            function install() {
+                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function(installations){
+                     if(installations!=0){
+                         installations[0].endVt=(new Date()).toISOString();
+                         BFInstallation.persist(installations[0]);
+                     }
+                     else{}
+                 })
+                    BFInstallation.persist({
+                        id: null,
+                        subject:    tagId,
+                        object:     personId,
+                        relType: REL_TYPE_INSTALLATION,
+                        startVt:    (new Date()).toISOString(),
+                        endVt: 'infinity',
 
+                    })
+                        .then(function resolve() {
+                            window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
+
+                        },
+                            function reject(errOrResponse) {
+                                var message = decodeHTTPResponse(errOrResponse);
+                                window.alert(message);
+                            });
+                        }
+               
+
+
+
+
+                if (installations.length > 1) {
+                    // what to do here?
+                    return;
+                }
+                if (installations.length === 1) {
+                    //if (confirm('This beacon was already paired to someone, the association has been removed')) {
+                        var inst = installations[0];
+                        inst.endVt = (new Date()).toISOString();
+                        BFInstallation.persist(inst).then(function resolve() {
+                            install();
+
+                        }, function reject(errOrResponse) {
+                            var message = decodeHTTPResponse(errOrResponse);
+                            console.log(message);
+                        });
+                    //}
+                }
+                else {
+                    install();
+                }
+
+
+
+            
+        });
+    }
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.23/troubleshooting');
+            console.log('Beta version 2.24/troubleshooting');
 
 
 
