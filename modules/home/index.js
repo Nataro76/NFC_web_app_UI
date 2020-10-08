@@ -165,7 +165,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                   ADDR = String(`Text: ${textDecoder.decode(record.data)} (${record.lang})`);
                   ADDR = String(ADDR.match(/(\d+)/));
                   msgValue = ADDR.substring(0,ADDR.indexOf(','));
-                  window.alert('You scanned: '+msgValue);
+                  window.alert('You scanned: '+ADDR);
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
                     $scope.size=Object.keys($scope.temp).length;
