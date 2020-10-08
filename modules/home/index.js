@@ -75,6 +75,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         .then(function resolve() {
                             window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
                             $scope.success=true;
+                            $scope.state=!$scope.state;
 
                         },
                             function reject(errOrResponse) {
