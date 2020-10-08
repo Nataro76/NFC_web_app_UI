@@ -118,7 +118,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.29/troubleshooting');
+            console.log('Beta version 2.3/troubleshooting');
             $scope.success=false;
 
 
