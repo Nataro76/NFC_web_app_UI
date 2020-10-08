@@ -37,6 +37,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         });
 
                     }
+                }
 
                         BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function (installations) {
                             function install() {
@@ -89,7 +90,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         });
    
    
-                    }
+                    
                  })
 
                 }
@@ -98,7 +99,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.16/troubleshooting');
+            console.log('Beta version 2.17/troubleshooting');
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
