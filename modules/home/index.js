@@ -79,7 +79,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         },
                             function reject(errOrResponse) {
                                 var message = decodeHTTPResponse(errOrResponse);
-                                window.alert(message);
+                                console.log(message);
+                                window.alert('The tag is already associated, check association or try with another tag');
 
                             });
                         }
@@ -117,7 +118,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.28/troubleshooting');
+            console.log('Beta version 2.29/troubleshooting');
             $scope.success=false;
 
 
