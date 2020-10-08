@@ -119,7 +119,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.31/troubleshooting');
+            console.log('Beta version 2.32/troubleshooting');
             $scope.success=false;
 
 
@@ -166,6 +166,49 @@ define([ 'require','libbf'], function ( require, libbf ) {
               }
             
         }
+
+$ctrl.unpairing = function (){
+    $scope.unpaired;
+    reader.scan();
+            reader.onreading =({message,serialNumber}) =>{
+                let msgValue;
+                for (const record of message.records) {
+                    console.log(`> Record type:   ${record.recordType}`);
+                     switch(record.recordType){
+                        case "text":
+window.alert('Error: You scanned a tag, please scan an identification badge');
+break;
+                  default:
+                       msgValue=String(serialNumber);
+                       BFSubjects.search({typeSid:'butachimie-person', rules: [
+                        { path: '{serialNo}', pred: '~*', val:msgValue }
+                    ] }).then(function( subjects ) {
+                        $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
+                        let you=subjects[0].name;
+                        window.alert('You are unpairing the "'+ you+'" tag.');
+                        BFInstallation.search({ objectId: personId,relType: REL_TYPE_INSTALLATION}).then(function(installations){
+                            if(installations===1){
+                            var inst=installations[0];
+                            inst.endVt=(new Date()).toISOString();
+                            BFInstallation.persist(inst).then(function resolve(){
+                                window.alert('Unpairing process was succesfull!');
+                                $scope.unpaired=!$scope.unpaired;
+                            })
+                            }
+                            else{
+                                window.alert('Something went wrong somewhere, please try again');
+                            }
+                        })
+                    })
+                       break;
+                       
+                     }
+                     }
+
+            }
+
+}
+
         $ctrl.scanStart = function () {
             
 //             window.alert('version 1.1');
@@ -230,26 +273,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
            
 
         });
-//here all the function that were used as a class
-function Serialcheck(serial){
-let tagValue=String(serial);
-document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+tagValue);
-dbCheck(tagValue);
-}
 $ctrl.beacon;
 $ctrl.tag;
-function dbCheck(tagADDR){
-    const REL_TYPE_INSTALLATION = 11;
-    const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-    let serialNo=null;;
-    const $q=q;
-    let tagString=String(tagADDR);
-    if(tagString.match(/(\d+)/).length!=tagADDR.length){
-        serialNo=tagADDR;
-    }
-    else{
-        tagADDR=parseInt(tagADDR);
-    }
-}
     }]);//the end
 });
