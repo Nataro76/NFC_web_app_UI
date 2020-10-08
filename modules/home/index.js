@@ -25,7 +25,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                 BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
                     if(installs.length!=0){
-                        if(confirm(window.alert('This person is already associated to a tag, association will be removed. Continue?'))){
+                        if(confirm(window.alert('This tag is already associated to a person, association will be removed. Continue?'))){
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         BFInstallation.persist( inst ).then(function resolve( ) {
@@ -54,9 +54,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $scope.attachTag= function(tagId,personId){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function (installations) { //timestamp: (new Date()).toISOString() }
+            BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION,timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
-                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function(installations){
+                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function(installations){
                      if(installations!=0){
                          installations[0].endVt=(new Date()).toISOString();
                          BFInstallation.persist(installations[0]);
@@ -115,7 +115,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.26/troubleshooting');
+            console.log('Beta version 2.27/troubleshooting');
 
 
 
