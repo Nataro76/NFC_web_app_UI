@@ -38,6 +38,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                     }
                 }
+                else{
+                    $scope.attachTag(tagId,personId);
+                }
             });
 
 
@@ -110,7 +113,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.24/troubleshooting');
+            console.log('Beta version 2.25/troubleshooting');
 
 
 
