@@ -43,12 +43,12 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             function install() {
                                 // BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION, timestamp: (new Date()).toISOString() }).then(function () {
                                     BFInstallation.persist({
-                                        //id: null,
+                                        id: null,
                                         subject:    tagId,
                                         object:     personId,
-                                        relation_type: REL_TYPE_INSTALLATION,
-                                        start_vt:    (new Date()).toISOString(),
-                                        end_vt: 'infinity',
+                                        relType: REL_TYPE_INSTALLATION,
+                                        startVt:    (new Date()).toISOString(),
+                                        endVt: 'infinity',
 
                                     })
                                         .then(function resolve() {
