@@ -99,7 +99,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.2/troubleshooting');
+            console.log('Beta version 2.21/troubleshooting');
 
             try{
                 BFauth.authenticate('admin','D3fAulT-P4ssW0rD',null,'https://beta.orisun-iot.com/');
@@ -111,7 +111,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             $scope.$watch('size',function(){
                 if($scope.temp){
                 if($scope.size===2){
-                    //commitAssoc($scope.temp.beacon,$scope.temp.tag);
+                    commitAssoc($scope.temp.beacon,$scope.temp.tag);
                     $scope.temp={};
                     $scope.size=1;
                 }
