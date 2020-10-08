@@ -173,7 +173,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
                     $scope.size=Object.keys($scope.temp).length;
                     document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
-                    window.alert('You scanned: '+$scope.temp.beacon);
+                    window.alert('You scanned: '+subjects[0].name);
                     })
                 break;
                   }
