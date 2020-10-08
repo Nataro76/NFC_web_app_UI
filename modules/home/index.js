@@ -59,7 +59,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                  BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function(installations){
                      if(installations!=0){
                          installations[0].endVt=(new Date()).toISOString();
-                         BFInstallation.persist(installations[0]);
+                         BFInstallation.persist(installations);
                      }
                      else{}
                  })
@@ -74,11 +74,13 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     })
                         .then(function resolve() {
                             window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
+                            $scope.success=true;
 
                         },
                             function reject(errOrResponse) {
                                 var message = decodeHTTPResponse(errOrResponse);
                                 window.alert(message);
+
                             });
                         }
                
@@ -115,7 +117,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.27/troubleshooting');
+            console.log('Beta version 2.28/troubleshooting');
+            $scope.success=false;
 
 
 
