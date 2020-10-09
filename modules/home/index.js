@@ -246,7 +246,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 let you=subjects[0].name;
                                 window.alert('You are unpairing the "'+ you+'" tag.');
                                 const today=(new Date()).toISOString();
-                                BFInstallation.search({ subjectId: subjects[0].id,relType: 11,timestamp:today}).then(function(installations){
+                                BFInstallation.search({ subjectId: subjects[0].id,}).then(function(installations){//relType: 11,timestamp:today
                                     if(installations!=0){
                                     var inst=installations[0];
                                     inst.endVt=(new Date()).toISOString();
