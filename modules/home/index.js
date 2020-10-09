@@ -182,7 +182,7 @@ function changeScopeState(){
             changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
-            reader.scan();
+            reader.scan({ signal: controller.signal });
             reader.onreading =({message,serialNumber}) =>{
                 let ADDR
                 let msgValue;
@@ -225,9 +225,6 @@ function changeScopeState(){
                        
                      }
                      }
-                    //  if($scope.state===false){
-                    //     return;
-                    // }
                     };
                     
 
