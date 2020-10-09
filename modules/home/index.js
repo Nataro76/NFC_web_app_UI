@@ -203,8 +203,9 @@ $scope.state=!$scope.state;
                     })
                 break;
                   }
-                            catch(e){
-                                window.alert(e);
+                            catch(error){
+                                console.log(error);
+                                window.alert('tag reasing error');
                                 break;
                             }
                   default:
