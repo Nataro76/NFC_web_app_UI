@@ -146,6 +146,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             };
 
         $ctrl.ChromSamplesInit = function(){
+            $scope.success=false;
             $scope.temp={};
             $ctrl.ChromeSamples = {
             
