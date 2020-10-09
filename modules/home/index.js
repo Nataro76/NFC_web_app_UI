@@ -225,9 +225,9 @@ function changeScopeState(){
                        
                      }
                      }
-                     if($scope.state===false){
-                        return;
-                    }
+                    //  if($scope.state===false){
+                    //     return;
+                    // }
                     };
                     
 
