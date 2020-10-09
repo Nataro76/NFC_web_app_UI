@@ -56,13 +56,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
-                // InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
-                //      //if(installations.length===1){
-                //          installations[0].endVt=(new Date()).toISOString();
-                //          InstallationsService.persist(installations);
-                     //}
-                     //else{
-                 
                  InstallationsService.persist({
                         id: null,
                         subject:    tagId,
@@ -98,6 +91,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 if (installations.length > 1) {
                     window.alert('> Critical error: This tag is associated to more than one person!')
                     console.log(installations);
+                    if(installations[0].endVt<(new Date()).toISOString()){
+                        install();
+                    }
                     return;
                 }
                 if (installations.length === 1) {
