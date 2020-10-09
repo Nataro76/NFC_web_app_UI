@@ -175,7 +175,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             // if($scope.state===false){
             //     return $scope.state;
             // }
-            $scope.state = true;    
+            $scope.state = !$scope.state;    
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
             reader.scan();
