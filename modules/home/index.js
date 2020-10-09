@@ -56,12 +56,12 @@ define([ 'require','libbf'], function ( require, libbf ) {
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             InstallationsService.search({ subjectId: tagId, relType:'is-installed-at'}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
-                InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
-                     if(installations.length===1){
-                         installations[0].endVt=(new Date()).toISOString();
-                         InstallationsService.persist(installations);
-                     }
-                     else{
+                // InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
+                //      //if(installations.length===1){
+                //          installations[0].endVt=(new Date()).toISOString();
+                //          InstallationsService.persist(installations);
+                     //}
+                     //else{
                  
                  InstallationsService.persist({
                         id: null,
@@ -84,8 +84,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 window.alert('The tag is already associated, check association or try with another tag');
 
                             });
-                            }
-                        })
+                            //}
+                        // })
                         }
                
 
