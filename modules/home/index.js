@@ -81,7 +81,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             function reject(errOrResponse) {
                                 var message = decodeHTTPResponse(errOrResponse);
                                 console.log(message);
-                                window.alert('The tag is already associated, check association or try with another tag');
+                                window.alert('There was an error while associating, please try again');
 
                             });
                             //}
@@ -98,7 +98,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 }
                 if (installations.length === 1) {
                     //if (confirm('This beacon was already paired to someone, the association has been removed')) {
-                        var inst = installations;
+                        var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist(inst).then(function resolve() {
                             install();
