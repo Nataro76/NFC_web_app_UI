@@ -232,8 +232,8 @@ $scope.state=!$scope.state;
 
         };
         $ctrl.unpair = function(){
-            let tag =typeof $scope.temp.tag!='undefined'?$scope.temp.tag:null;
-            let beacon =typeof $scope.temp.beacon!='undefined'?$scope.temp.beacon:null;
+            let tag =$scope.temp.tag!=null?$scope.temp.tag:0;
+            let beacon =typeof $scope.temp.beacon!=null?$scope.temp.beacon:0;
 
             if(confirm('Are you sure you want to unpair? ')){
                 $scope.attachTag(tag,beacon)
