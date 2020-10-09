@@ -33,7 +33,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
     
                         }, function reject ( errOrResponse ) {
                             var message = decodeHTTPResponse(errOrResponse );
-                            console.log( message );
+                            console.log('Not working: '+ message );
                         });
 
                     }
