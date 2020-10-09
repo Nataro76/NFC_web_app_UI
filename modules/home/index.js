@@ -121,7 +121,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             window.addEventListener('error', errorFun());
             console.log('Beta version 2.35/troubleshooting');
             $scope.success=false;
-            $scope.unpaired=!$scope.unpaired;
+            // $scope.unpaired=!$scope.unpaired;
 
 
 
