@@ -121,7 +121,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
             window.addEventListener('error', errorFun());
             console.log('Beta version 2.35/troubleshooting');
             $scope.success=false;
-            $unpaired=!$unpaired;
+            $scope.unpaired=!$scope.unpaired;
 
 
 
@@ -226,7 +226,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
         };
         $ctrl.unpairing = function (){
-            $scope.unpaired;
+            $scope.unpaired=!$scope.unpaired;
             var reader = new NDEFReader();
             reader.scan();
                     reader.onreading =({message,serialNumber}) =>{
