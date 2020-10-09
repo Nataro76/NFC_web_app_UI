@@ -54,7 +54,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $scope.attachTag= function(tagId,personId){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',endVt:'infinity'}).then(function (installations) { // timestamp: (new Date()).toISOString()}
+            InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',end_vt:'infinity'}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
                 // InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
                 //      //if(installations.length===1){
