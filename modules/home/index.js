@@ -172,6 +172,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
         $ctrl.scanStart = function () {
 //             window.alert('version 1.1');
+            if(state===false){
+                return;
+            }
             $scope.state = true;    
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
