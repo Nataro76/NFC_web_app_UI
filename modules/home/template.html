@@ -4,8 +4,12 @@
   <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
     <md-card-title>
       <md-card-title-text>
-        <span class="md-headline">Person card</span>
-        <span class="md-subhead">id</span>
+        <span class="md-headline">
+          <p id='name_of_person'></p>
+        </span>
+        <span class="md-subhead">
+          <p id='tag_of_person'>
+        </span>
       </md-card-title-text>
       <md-card-title-media>
         <div class="md-media-sm card-media"></div>
@@ -15,7 +19,6 @@
 
   <div layout="column">
     <md-content>
-    <!-- <md-button class="md-raised" ng-click="$ctrl.fun()"><div>Start scanning</div></md-button>> -->
     <md-button class="md-raised" ng-click="$ctrl.scanStart()" ><div>
       <div ng-if="state">
         End procedure
@@ -28,16 +31,13 @@
   </div>
 </div>
   <div ng-if="state">
-    <!-- <div layout="row" layout-sm="column" layout-align="space-around"> -->
-      <p id="displayNum"></p>
       <md-progress-linear md-mode="indeterminate"></md-progress-linear>
             <span class="md-headline">You can scan your tag now</span>
 
     </div>
-  <!-- </div> -->
   <div ng-if='!state'>
     <div ng-if="success===true">
-      Done!
+      Association was as success!
 <img src='check.svg'>
     </div>
   </div>

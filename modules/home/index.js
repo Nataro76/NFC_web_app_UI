@@ -66,7 +66,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                     })
                         .then(function resolve() {
-                            window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
+                            console.log($ctrl.you + ' and ' + personId + ' were correctly associated!');
                             $scope.success=true;
                             $scope.state=!$scope.state;
                             delete $scope.temp.beacon;
@@ -77,7 +77,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             function reject(errOrResponse) {
                                 var message = decodeHTTPResponse(errOrResponse);
                                 console.log(message);
-                                window.alert('There was an error while associating, please try again');
+                                console.log('There was an error while associating, please try again');
 
                             });
                             //}
@@ -89,7 +89,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
                 if (installations.length > 1) {
-                    window.alert('> Critical error: This tag is associated to more than one person!')
+                    console.log('> Critical error: This tag is associated to more than one person!')
                     console.log(installations);
                     if(installations[0].endVt<(new Date()).toISOString()){
                         install();
@@ -97,7 +97,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     return;
                 }
                 if (installations.length === 1) {
-                        window.alert('This tag is already paired with someone else, association will be removed');
+                        console.log('This tag is already paired with someone else, association will be removed');
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist(inst).then(function resolve() {
@@ -197,14 +197,14 @@ $scope.state=!$scope.state;
                   BFSubjects.search({ name: msgValue,typeSid: 'butachimie-tag' }).then(function( subjects ) {
                     $scope.temp.beacon=subjects.length===1?subjects[0].id:null;
                     $scope.size=Object.keys($scope.temp).length;
-                    document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
-                    window.alert('You scanned: '+subjects[0].name);
+                    document.getElementById("tag_of_person").innerHTML=('TagId: '+subjects[0].name);
+                    console.log('You scanned: '+subjects[0].name);
                     })
                 break;
                   }
                             catch(error){
                                 console.log(error);
-                                window.alert('tag reasing error');
+                                console.log('tag reading error');
                                 break;
                             }
                   default:
@@ -215,8 +215,8 @@ $scope.state=!$scope.state;
                         $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
                         $scope.size=Object.keys($scope.temp).length;
                         $ctrl.you=subjects[0].name;
-                        window.alert('You are '+ $ctrl.you);
-                        document.getElementById("displayNum").innerHTML=('Checking for the following tag: '+msgValue);
+                        console.log('You are '+ $ctrl.you);
+                        document.getElementById("name_of_person").innerHTML=($ctrl.you);
                     })
                        break;
                        
