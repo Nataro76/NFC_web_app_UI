@@ -24,8 +24,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
                 InstallationsService.search({objectId: personId,relType:'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installs){
-                    if(installs.length!=0){
-                        if(confirm(window.alert('This tag is already associated to a person, association will be removed. Continue?'))){
+                    if(installs.length===1){
+                        if(confirm(window.alert('This person is already associated with another tag, association will be removed. Continue?'))){
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist( inst ).then(function resolve( ) {
@@ -57,12 +57,12 @@ define([ 'require','libbf'], function ( require, libbf ) {
             InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
                 InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
-                     if(installations!=0){
+                     if(installations.length===1){
                          installations[0].endVt=(new Date()).toISOString();
                          InstallationsService.persist(installations);
                      }
-                     else{}
-                 })
+                     else{
+                 
                  InstallationsService.persist({
                         id: null,
                         subject:    tagId,
@@ -84,6 +84,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 window.alert('The tag is already associated, check association or try with another tag');
 
                             });
+                            }
+                        })
                         }
                
 
@@ -91,7 +93,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
                 if (installations.length > 1) {
-                    // what to do here?
+                    window.alert('> Critical error: This tag is associated to more than one person!')
                     return;
                 }
                 if (installations.length === 1) {
