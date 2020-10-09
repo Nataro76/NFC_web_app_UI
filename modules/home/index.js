@@ -12,7 +12,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
               templateUrl: require.toUrl('./template.html')
           });
       }])
-      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','InstallationsService','BFSubjectsService','$q', function ( $scope, $element, userPrefs,BFauth, IInstallationsService,BFSubjects,q) {
+      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','BFInstallationsService','BFSubjectsService','$q', function ( $scope, $element, userPrefs,BFauth, InstallationsService,BFSubjects,q) {
 
         var $ctrl = this; 
         function errorFun(){
