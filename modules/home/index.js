@@ -251,7 +251,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 InstallationsService.search({objectId:subjects[0].id,relType: 'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installations){//relType: 'is-installed-at',timestamp:today,subjectId: tag
                                     if(installations!=0){
                                     installations.forEach(function(thing){
-                                    window.alert(thing);
+                                    window.alert(thing.name);
                                     })
                                     // inst.endVt=(new Date()).toISOString();
                                     // InstallationsService.persist(inst).then(function resolve(){
