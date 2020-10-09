@@ -182,8 +182,7 @@ function changeScopeState(){
             changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
-            reader.scan({ signal: controller.signal });
-            setTimeout(() => controller.abort(), 20_000);
+            reader.scan();
             reader.onreading =({message,serialNumber}) =>{
                 let ADDR
                 let msgValue;
