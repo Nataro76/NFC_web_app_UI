@@ -169,16 +169,11 @@ define([ 'require','libbf'], function ( require, libbf ) {
         }
 
 function changeScopeState(){
-    if($scope.state===true){
-        $scope.state=false;
-    }
-    if($scope.state===false){
-        $scope.state=true;
-    }
-    return $scope.state;
+$scope.state=!$scope.state;
 }
 
         $ctrl.scanStart = function () {
+
             changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
@@ -230,51 +225,51 @@ function changeScopeState(){
 
         };
 
-        $ctrl.unpairing = function (){
-            const REL_TYPE_INSTALLATION = 11;
-            const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            $scope.unpaired=!$scope.unpaired;
-            var reader = new NDEFReader();
-            reader.scan();
-                    reader.onreading =({message,serialNumber}) =>{
-                        let msgValue;
-                        for (const record of message.records) {
-                            console.log(`> Record type:   ${record.recordType}`);
-                             switch(record.recordType){
-                                case "text":
-        window.alert('Error: You scanned a tag, please scan an identification badge');
-        break;
-                          default:
-                               msgValue=String(serialNumber);
-                               BFSubjects.search({typeSid:'butachimie-person', rules: [
-                                { path: '{serialNo}', pred: '~*', val:msgValue }
-                            ] }).then(function( subjects ) {
-                                let tag=subjects.length === 1 ?subjects[0].id : null;
-                                let you=subjects[0].name;
-                                window.alert('You are unpairing the "'+ you+'" tag.');
-                                const today=(new Date()).toISOString();
-                                InstallationsService.search({objectId:subjects[0].id,relType: 'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installations){//relType: 'is-installed-at',timestamp:today,subjectId: tag
-                                    if(installations.length===1){
-                                        console.log(installations);
-                                    inst.endVt=(new Date()).toISOString();
-                                    InstallationsService.persist(inst).then(function resolve(){
-                                        window.alert('Unpairing process was succesfull!');
-                                        $scope.unpaired=!$scope.unpaired;
-                                    })
-                                    }
-                                    else{
-                                        window.alert('Person is not paired to a beacon');
-                                    }
-                                })
-                            })
-                               break;
+        // $ctrl.unpairing = function (){
+        //     const REL_TYPE_INSTALLATION = 11;
+        //     const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
+        //     $scope.unpaired=!$scope.unpaired;
+        //     var reader = new NDEFReader();
+        //     reader.scan();
+        //             reader.onreading =({message,serialNumber}) =>{
+        //                 let msgValue;
+        //                 for (const record of message.records) {
+        //                     console.log(`> Record type:   ${record.recordType}`);
+        //                      switch(record.recordType){
+        //                         case "text":
+        // window.alert('Error: You scanned a tag, please scan an identification badge');
+        // break;
+        //                   default:
+        //                        msgValue=String(serialNumber);
+        //                        BFSubjects.search({typeSid:'butachimie-person', rules: [
+        //                         { path: '{serialNo}', pred: '~*', val:msgValue }
+        //                     ] }).then(function( subjects ) {
+        //                         let tag=subjects.length === 1 ?subjects[0].id : null;
+        //                         let you=subjects[0].name;
+        //                         window.alert('You are unpairing the "'+ you+'" tag.');
+        //                         const today=(new Date()).toISOString();
+        //                         InstallationsService.search({objectId:subjects[0].id,relType: 'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installations){//relType: 'is-installed-at',timestamp:today,subjectId: tag
+        //                             if(installations.length===1){
+        //                                 console.log(installations);
+        //                             inst.endVt=(new Date()).toISOString();
+        //                             InstallationsService.persist(inst).then(function resolve(){
+        //                                 window.alert('Unpairing process was succesfull!');
+        //                                 $scope.unpaired=!$scope.unpaired;
+        //                             })
+        //                             }
+        //                             else{
+        //                                 window.alert('Person is not paired to a beacon');
+        //                             }
+        //                         })
+        //                     })
+        //                        break;
                                
-                             }
-                             }
+        //                      }
+        //                      }
         
-                    }
+        //             }
         
-        };
+        // };
 
         $scope.fun = function () {
             $scope.state = !$scope.state;
