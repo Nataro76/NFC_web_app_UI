@@ -242,10 +242,10 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                BFSubjects.search({typeSid:'butachimie-person', rules: [
                                 { path: '{serialNo}', pred: '~*', val:msgValue }
                             ] }).then(function( subjects ) {
-                                $scope.temp.tag=subjects.length === 1 ?subjects[0].id : null;
+                                let tag=subjects.length === 1 ?subjects[0].id : null;
                                 let you=subjects[0].name;
                                 window.alert('You are unpairing the "'+ you+'" tag.');
-                                BFInstallation.search({ objectId: personId,relType: REL_TYPE_INSTALLATION}).then(function(installations){
+                                BFInstallation.search({ objectId: tag,relType: REL_TYPE_INSTALLATION}).then(function(installations){
                                     if(installations===1){
                                     var inst=installations[0];
                                     inst.endVt=(new Date()).toISOString();
