@@ -54,7 +54,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $scope.attachTag= function(tagId,personId){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
+            InstallationsService.search({ subjectId: tagId, relType:'is-installed-at'}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
                 // InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
                 //      //if(installations.length===1){
@@ -76,8 +76,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
                             $scope.success=true;
                             $scope.state=!$scope.state;
-                            $scope.temp.beacon=null;
-                            $scope.temp.tag=null;
+                            delete $scope.temp.beacon;
+                            delete $scope.temp.tag;
+                            $scope.size=0;
 
                         },
                             function reject(errOrResponse) {
@@ -96,6 +97,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                 if (installations.length > 1) {
                     window.alert('> Critical error: This tag is associated to more than one person!')
+                    console.log(installations);
                     return;
                 }
                 if (installations.length === 1) {
@@ -140,7 +142,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 if($scope.temp){
                 if($scope.size===2){
                     commitAssoc($scope.temp.beacon,$scope.temp.tag);
-                    $scope.size=1;
                 }
             }
             })
