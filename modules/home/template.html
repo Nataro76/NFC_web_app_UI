@@ -1,10 +1,18 @@
 <div layout="column" layout-padding>
   <h1 class='md-display-2'>Nfc Web app test</h1>
-  <md-card-title-text>
-    <span class="md-headline">Card title</span>
-    <span class="md-subhead">Small</span>
-  </md-card-title-text>
-  <md-card-title-media>
+  <!-- Here is the card -->
+  <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">Person card</span>
+        <span class="md-subhead">id</span>
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-sm card-media"></div>
+      </md-card-title-media>
+    </md-card-title>
+  </md-card>
+
   <div layout="column">
     <md-content>
     <!-- <md-button class="md-raised" ng-click="$ctrl.fun()"><div>Start scanning</div></md-button>> -->
