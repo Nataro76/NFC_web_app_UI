@@ -23,7 +23,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
-                InstallationsService.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
+                InstallationsService.search({objectId: personId,relType:'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installs){
                     if(installs.length!=0){
                         if(confirm(window.alert('This tag is already associated to a person, association will be removed. Continue?'))){
                         var inst = installations[0];
@@ -54,9 +54,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $scope.attachTag= function(tagId,personId){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            InstallationsService.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION,timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
+            InstallationsService.search({ subjectId: tagId, relType:'is-installed-at',timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
-                InstallationsService.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function(installations){
+                InstallationsService.search({ objectId: personId, subjectId: tagId, relType: 'is-installed-at'}).then(function(installations){
                      if(installations!=0){
                          installations[0].endVt=(new Date()).toISOString();
                          InstallationsService.persist(installations);
