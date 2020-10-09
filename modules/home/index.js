@@ -171,15 +171,12 @@ define([ 'require','libbf'], function ( require, libbf ) {
             
         }
 
-function changeScopeState(){
-$scope.state=!$scope.state;
-}
 
         $ctrl.scanStart = function () {
+            $scope.state=!$scope.state;
             document.getElementById("tag_of_person").innerHTML='';
             document.getElementById("name_of_person").innerHTML='';
-            document.getElementById("unpairStatus").innerHTML='';
-            changeScopeState();   
+            document.getElementById("unpairStatus").innerHTML='';  
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
             reader.scan();
@@ -240,7 +237,7 @@ $scope.state=!$scope.state;
                 document.getElementById("unpairStatus").innerHTML='Unpair successful';
                 $scope.hideValue=true;
                 changeScopeState();
-                $scope.attachTag(tag,beacon)
+                $scope.state=!$scope.state;
                 }
         }
 $ctrl.beacon;
