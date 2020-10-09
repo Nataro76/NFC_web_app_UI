@@ -12,7 +12,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
               templateUrl: require.toUrl('./template.html')
           });
       }])
-      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','BFInstallationsService','BFSubjectsService','$q', function ( $scope, $element, userPrefs,BFauth, BFInstallation,BFSubjects,q) {
+      .controller('homeCtrl', [ "$scope", "$element", 'BFUserPrefsService','BFAuthService','InstallationsService','BFSubjectsService','$q', function ( $scope, $element, userPrefs,BFauth, IInstallationsService,BFSubjects,q) {
 
         var $ctrl = this; 
         function errorFun(){
@@ -23,12 +23,12 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 const REL_TYPE_INSTALLATION = 11;
                 const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
 
-                BFInstallation.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
+                InstallationsService.search({objectId: personId,relType:REL_TYPE_INSTALLATION,timestamp:(new Date()).toISOString()}).then(function(installs){
                     if(installs.length!=0){
                         if(confirm(window.alert('This tag is already associated to a person, association will be removed. Continue?'))){
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
-                        BFInstallation.persist( inst ).then(function resolve( ) {
+                        InstallationsService.persist( inst ).then(function resolve( ) {
                             $scope.attachTag(tagId,subjectId);
     
                         }, function reject ( errOrResponse ) {
@@ -54,16 +54,16 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $scope.attachTag= function(tagId,personId){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
-            BFInstallation.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION,timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
+            InstallationsService.search({ subjectId: tagId, relType: REL_TYPE_INSTALLATION,timestamp: (new Date()).toISOString()}).then(function (installations) { // timestamp: (new Date()).toISOString()}
             function install() {
-                 BFInstallation.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function(installations){
+                InstallationsService.search({ objectId: personId, subjectId: tagId, relType: REL_TYPE_INSTALLATION}).then(function(installations){
                      if(installations!=0){
                          installations[0].endVt=(new Date()).toISOString();
-                         BFInstallation.persist(installations);
+                         InstallationsService.persist(installations);
                      }
                      else{}
                  })
-                    BFInstallation.persist({
+                 InstallationsService.persist({
                         id: null,
                         subject:    tagId,
                         object:     personId,
@@ -98,7 +98,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     //if (confirm('This beacon was already paired to someone, the association has been removed')) {
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
-                        BFInstallation.persist(inst).then(function resolve() {
+                        InstallationsService.persist(inst).then(function resolve() {
                             install();
 
                         }, function reject(errOrResponse) {
@@ -246,11 +246,11 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 let you=subjects[0].name;
                                 window.alert('You are unpairing the "'+ you+'" tag.');
                                 const today=(new Date()).toISOString();
-                                BFInstallation.search({ subjectId: subjects[0].id,}).then(function(installations){//relType: 11,timestamp:today
+                                InstallationsService.search({ subjectId: tag,}).then(function(installations){//relType: 11,timestamp:today
                                     if(installations!=0){
                                     var inst=installations[0];
                                     inst.endVt=(new Date()).toISOString();
-                                    BFInstallation.persist(inst).then(function resolve(){
+                                    InstallationsService.persist(inst).then(function resolve(){
                                         window.alert('Unpairing process was succesfull!');
                                         $scope.unpaired=!$scope.unpaired;
                                     })
