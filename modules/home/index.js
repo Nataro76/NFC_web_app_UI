@@ -233,14 +233,14 @@ $scope.state=!$scope.state;
 
         };
         $ctrl.unpair = function(){
-            let tag =$scope.temp.tag!=null?$scope.temp.tag:0;
-            let beacon =typeof $scope.temp.beacon!=null?$scope.temp.beacon:0;
+            let tag =$scope.temp.tag;
+            let beacon =$scope.temp.beacon;
 
             if(confirm('Are you sure you want to unpair? ')){
+                document.getElementById(unpairStatus).innerHTML='Unpair successful';
+                $scope.hideValue=true;
                 $scope.attachTag(tag,beacon)
             }
-            document.getElementById(unpairStatus).innerHTML='Unpair successful';
-            $scope.hideValue=true;
         }
 $ctrl.beacon;
 $ctrl.tag;
