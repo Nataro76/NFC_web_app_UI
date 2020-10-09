@@ -255,7 +255,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                     })
                                     }
                                     else{
-                                        window.alert('Something went wrong somewhere, please try again');
+                                        window.alert('Person is not paired to a beacon');
                                     }
                                 })
                             })
