@@ -171,7 +171,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
         $ctrl.scanStart = function () {
-            if($scope.success===false){
+            if($scope.success===true){
                 return;
             }
             
