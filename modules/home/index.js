@@ -76,6 +76,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
                             window.alert($ctrl.you + ' and ' + personId + ' were correctly associated!');
                             $scope.success=true;
                             $scope.state=!$scope.state;
+                            $scope.temp.beacon=null;
+                            $scope.temp.tag=null;
 
                         },
                             function reject(errOrResponse) {
@@ -138,7 +140,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                 if($scope.temp){
                 if($scope.size===2){
                     commitAssoc($scope.temp.beacon,$scope.temp.tag);
-                    $scope.temp={};
                     $scope.size=1;
                 }
             }
