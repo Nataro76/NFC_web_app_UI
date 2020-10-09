@@ -171,9 +171,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
         $ctrl.scanStart = function () {
-            if($scope.success===true){
-                return;
-            }
             
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
