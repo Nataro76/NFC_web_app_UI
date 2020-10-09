@@ -232,8 +232,8 @@ $scope.state=!$scope.state;
 
         };
         $ctrl.unpair = function(){
-            let tag = $scope.temp.tag || '';
-            let beacon = $scope.temp.beacon || '';
+            let tag = $scope.temp.tag || null;
+            let beacon = $scope.temp.beacon || null;
             if(confirm('Are you sure you want to unpair? ')){
                 $scope.attachTag(tag,beacon)
             }
