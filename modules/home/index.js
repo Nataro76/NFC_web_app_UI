@@ -97,7 +97,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     return;
                 }
                 if (installations.length === 1) {
-                    //if (confirm('This beacon was already paired to someone, the association has been removed')) {
+                        window.alert('This tag is already paired with someone else, association will be removed');
                         var inst = installations[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist(inst).then(function resolve() {
