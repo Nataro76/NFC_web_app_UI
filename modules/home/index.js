@@ -225,12 +225,12 @@ function changeScopeState(){
                        
                      }
                      }
-                    //Serialcheck(msgValue);
-                    };
-                    
-                    if($scope.state===false){
+                     if($scope.state===false){
                         return;
                     }
+                    };
+                    
+
         };
 
         $ctrl.unpairing = function (){
