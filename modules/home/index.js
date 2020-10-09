@@ -178,6 +178,7 @@ $scope.state=!$scope.state;
         $ctrl.scanStart = function () {
             document.getElementById("tag_of_person").innerHTML='';
             document.getElementById("name_of_person").innerHTML='';
+            document.getElementById(unpairStatus).innerHTML='';
             changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
@@ -238,6 +239,8 @@ $scope.state=!$scope.state;
             if(confirm('Are you sure you want to unpair? ')){
                 $scope.attachTag(tag,beacon)
             }
+            document.getElementById(unpairStatus).innerHTML='Unpair successful';
+            $scope.hideValue=true;
         }
 $ctrl.beacon;
 $ctrl.tag;
