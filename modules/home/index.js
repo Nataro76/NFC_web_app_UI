@@ -120,6 +120,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
     }
         $ctrl.$onInit = function () {
             document.documentElement.webkitRequestFullScreen();
+            $scope.hideValue=true;
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
             console.log('Beta version 2.35/troubleshooting');
@@ -201,6 +202,7 @@ $scope.state=!$scope.state;
                     $scope.size=Object.keys($scope.temp).length;
                     document.getElementById("tag_of_person").innerHTML=('TagId: '+subjects[0].name);
                     console.log('You scanned: '+subjects[0].name);
+                    $scope.hideValue=false;
                     })
                 break;
                   }
@@ -219,6 +221,7 @@ $scope.state=!$scope.state;
                         $ctrl.you=subjects[0].name;
                         console.log('You are '+ $ctrl.you);
                         document.getElementById("name_of_person").innerHTML=($ctrl.you);
+                        $scope.hideValue=false;
                     })
                        break;
                        
@@ -228,15 +231,13 @@ $scope.state=!$scope.state;
                     
 
         };
-
-        $scope.fun = function () {
-            $scope.state = !$scope.state;
-        };
-
-        $scope.$on('$destroy', function() {
-           
-
-        });
+        $ctrl.unpair = function(){
+            let tag = $scope.temp.tag || '';
+            let beacon = $scope.temp.beacon || '';
+            if(confirm('Are you sure you want to unpair? ')){
+                $scope.attachTag(tag,beacon)
+            }
+        }
 $ctrl.beacon;
 $ctrl.tag;
     }]);//the end
