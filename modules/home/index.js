@@ -29,7 +29,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                         var inst = installs[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist( inst ).then(function resolve( ) {
-                            $scope.attachTag(tagId,subjectId);
+                            $scope.attachTag(tagId,personId);
     
                         }, function reject ( errOrResponse ) {
                             var message = decodeHTTPResponse(errOrResponse );
