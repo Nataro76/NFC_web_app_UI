@@ -226,6 +226,8 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
         };
         $ctrl.unpairing = function (){
+            const REL_TYPE_INSTALLATION = 11;
+            const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
             $scope.unpaired=!$scope.unpaired;
             var reader = new NDEFReader();
             reader.scan();
@@ -246,7 +248,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 let you=subjects[0].name;
                                 window.alert('You are unpairing the "'+ you+'" tag.');
                                 const today=(new Date()).toISOString();
-                                InstallationsService.search({ subjectId: tag,}).then(function(installations){//relType: 11,timestamp:today
+                                InstallationsService.search({relType:REL_TYPE_INSTALLATION}).then(function(installations){//relType: 11,timestamp:today,subjectId: tag
                                     if(installations!=0){
                                     var inst=installations[0];
                                     inst.endVt=(new Date()).toISOString();
