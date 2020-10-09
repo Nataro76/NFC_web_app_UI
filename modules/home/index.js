@@ -168,14 +168,18 @@ define([ 'require','libbf'], function ( require, libbf ) {
             
         }
 
-
+function changeScopeState(){
+    if($scope.state===true){
+        $scope.state=false;
+    }
+    if($scope.state===false){
+        $scope.state=true;
+    }
+    return $scope.state;
+}
 
         $ctrl.scanStart = function () {
-//             window.alert('version 1.1');
-            // if($scope.state===false){
-            //     return $scope.state;
-            // }
-            $scope.state = !$scope.state;    
+            changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
             reader.scan();
@@ -224,7 +228,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     //Serialcheck(msgValue);
                     };
                     
-
+                    if($scope.state===false){
+                        return;
+                    }
         };
 
         $ctrl.unpairing = function (){
