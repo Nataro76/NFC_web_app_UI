@@ -248,16 +248,16 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 let you=subjects[0].name;
                                 window.alert('You are unpairing the "'+ you+'" tag.');
                                 const today=(new Date()).toISOString();
-                                InstallationsService.search({objectId: tag}).then(function(installations){//relType: is-installed-at,timestamp:today,subjectId: tag
+                                InstallationsService.search({relType: 'is-installed-at'}).then(function(installations){//relType: 'is-installed-at',timestamp:today,subjectId: tag
                                     if(installations!=0){
                                     var inst=installations.forEach(function(thing){
                                     window.alert(thing);
                                     })
-                                    inst.endVt=(new Date()).toISOString();
-                                    InstallationsService.persist(inst).then(function resolve(){
-                                        window.alert('Unpairing process was succesfull!');
-                                        $scope.unpaired=!$scope.unpaired;
-                                    })
+                                    // inst.endVt=(new Date()).toISOString();
+                                    // InstallationsService.persist(inst).then(function resolve(){
+                                    //     window.alert('Unpairing process was succesfull!');
+                                    //     $scope.unpaired=!$scope.unpaired;
+                                    //})
                                     }
                                     else{
                                         window.alert('Person is not paired to a beacon');
