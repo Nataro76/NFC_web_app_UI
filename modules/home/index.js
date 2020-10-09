@@ -25,7 +25,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
                 InstallationsService.search({objectId: personId,relType:'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installs){
                     if(installs.length===1){
-                        if(confirm(window.alert('This person is already associated with another tag, association will be removed. Continue?'))){
+                        if(confirm('This person is already associated with another tag, association will be removed. Continue?')){
                         var inst = installs[0];
                         inst.endVt = (new Date()).toISOString();
                         InstallationsService.persist( inst ).then(function resolve( ) {
