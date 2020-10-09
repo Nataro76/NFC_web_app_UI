@@ -171,6 +171,7 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
         $ctrl.scanStart = function () {
+            while($scope.success===false){
             
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
@@ -222,9 +223,10 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     //Serialcheck(msgValue);
                     };
                     
-              
+                }
 
         };
+
         $ctrl.unpairing = function (){
             const REL_TYPE_INSTALLATION = 11;
             const decodeHTTPResponse= libbf.functions.decodeHTTPResponse;
@@ -249,13 +251,13 @@ define([ 'require','libbf'], function ( require, libbf ) {
                                 window.alert('You are unpairing the "'+ you+'" tag.');
                                 const today=(new Date()).toISOString();
                                 InstallationsService.search({objectId:subjects[0].id,relType: 'is-installed-at',timestamp:(new Date()).toISOString()}).then(function(installations){//relType: 'is-installed-at',timestamp:today,subjectId: tag
-                                    if(installations.length!=0){
+                                    if(installations.length===1){
                                         console.log(installations);
-                                    // inst.endVt=(new Date()).toISOString();
-                                    // InstallationsService.persist(inst).then(function resolve(){
-                                    //     window.alert('Unpairing process was succesfull!');
-                                    //     $scope.unpaired=!$scope.unpaired;
-                                    //})
+                                    inst.endVt=(new Date()).toISOString();
+                                    InstallationsService.persist(inst).then(function resolve(){
+                                        window.alert('Unpairing process was succesfull!');
+                                        $scope.unpaired=!$scope.unpaired;
+                                    })
                                     }
                                     else{
                                         window.alert('Person is not paired to a beacon');
