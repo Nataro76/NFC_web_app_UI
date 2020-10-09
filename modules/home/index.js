@@ -174,7 +174,8 @@ $scope.state=!$scope.state;
 }
 
         $ctrl.scanStart = function () {
-
+            document.getElementById("tag_of_person").innerHTML='';
+            document.getElementById("name_of_person").innerHTML='';
             changeScopeState();   
             const reader = new NDEFReader(); 
             // { signal: controller.signal }  
