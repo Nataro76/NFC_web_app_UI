@@ -119,8 +119,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
         $ctrl.$onInit = function () {
             $ctrl.ChromSamplesInit();
             window.addEventListener('error', errorFun());
-            console.log('Beta version 2.34/troubleshooting');
+            console.log('Beta version 2.35/troubleshooting');
             $scope.success=false;
+            $unpaired=!$unpaired;
 
 
 
