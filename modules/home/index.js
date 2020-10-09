@@ -171,7 +171,9 @@ define([ 'require','libbf'], function ( require, libbf ) {
 
 
         $ctrl.scanStart = function () {
-            while($scope.success===false){
+            if($scope.success===false){
+                return;
+            }
             
 //             window.alert('version 1.1');
             $scope.state = !$scope.state;    
@@ -223,7 +225,6 @@ define([ 'require','libbf'], function ( require, libbf ) {
                     //Serialcheck(msgValue);
                     };
                     
-                }
 
         };
 
