@@ -239,8 +239,9 @@ $scope.state=!$scope.state;
             if(confirm('Are you sure you want to unpair? ')){
                 document.getElementById(unpairStatus).innerHTML='Unpair successful';
                 $scope.hideValue=true;
+                changeScopeState();
                 $scope.attachTag(tag,beacon)
-            }
+                }
         }
 $ctrl.beacon;
 $ctrl.tag;
